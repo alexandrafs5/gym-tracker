@@ -1,7 +1,14 @@
+import { useState } from "react";
 import HomePage from "./pages/HomePage";
+import RoutineBuilderPage from "./pages/RoutineBuilderPage";
 
 function App() {
-    return <HomePage />;
+    const [isCreatingRoutine, setIsCreatingRoutine] = useState(false);
+    return isCreatingRoutine ? (
+        <RoutineBuilderPage onBack={() => setIsCreatingRoutine(false)} />
+    ) : (
+        <HomePage onCreateRoutine={() => setIsCreatingRoutine(true)} />
+    );
 }
 
 export default App;
