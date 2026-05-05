@@ -25,7 +25,14 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         const newExercise: Exercise = {
             id: crypto.randomUUID(),
             name: exerciseName,
-            sets: [{ setNumber: 1, weight: 0, reps: 0, completed: false }],
+            sets: [
+                {
+                    setNumber: 1,
+                    weight: 0,
+                    reps: 0,
+                    completed: false,
+                },
+            ],
         };
 
         setExercises([...exercises, newExercise]);
@@ -57,8 +64,23 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         exerciseId: string,
         setNumber: number,
         field: "weight" | "reps",
-        value: number,
+        value: string,
     ) => {
+        if (field === "reps") {
+            if (!/^\d*$/.test(value)) return;
+        }
+
+        if (field === "weight") {
+            if (!/^\d*\.?\d*$/.test(value)) return;
+        }
+
+        const parsedValue =
+            value === ""
+                ? 0
+                : field === "weight"
+                  ? parseFloat(value)
+                  : parseInt(value);
+
         setExercises((prev) =>
             prev.map((ex) =>
                 ex.id !== exerciseId
@@ -67,7 +89,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                           ...ex,
                           sets: ex.sets.map((s) =>
                               s.setNumber === setNumber
-                                  ? { ...s, [field]: value }
+                                  ? { ...s, [field]: parsedValue }
                                   : s,
                           ),
                       },
@@ -117,7 +139,6 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                 />
             </div>
 
-            {/* BODY */}
             <div className="flex-1 overflow-y-auto p-6">
                 <input
                     className="w-full p-3 bg-gray-800 rounded-lg mb-4"
@@ -162,12 +183,11 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                             ex.id,
                                             s.setNumber,
                                             "weight",
-                                            e.target.value === ""
-                                                ? 0
-                                                : Number(e.target.value),
+                                            e.target.value,
                                         )
                                     }
                                     className="bg-gray-700 p-1 rounded"
+                                    inputMode="decimal"
                                 />
 
                                 <input
@@ -177,12 +197,11 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                             ex.id,
                                             s.setNumber,
                                             "reps",
-                                            e.target.value === ""
-                                                ? 0
-                                                : Number(e.target.value),
+                                            e.target.value,
                                         )
                                     }
                                     className="bg-gray-700 p-1 rounded"
+                                    inputMode="numeric"
                                 />
                             </div>
                         ))}
