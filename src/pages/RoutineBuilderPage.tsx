@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Routine, Exercise } from "../types/workout";
+import type { Routine } from "../types/workout";
 
 interface Props {
     onBack: () => void;
@@ -7,35 +7,60 @@ interface Props {
     existingRoutine: Routine | null;
 }
 
+type SetUI = {
+    setNumber: number;
+    weight: string;
+    reps: string;
+    completed: boolean;
+};
+
+type ExerciseUI = {
+    id: string;
+    name: string;
+    sets: SetUI[];
+};
+
 function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
     const [routineName, setRoutineName] = useState("");
     const [exerciseName, setExerciseName] = useState("");
-    const [exercises, setExercises] = useState<Exercise[]>([]);
+    const [exercises, setExercises] = useState<ExerciseUI[]>([]);
 
     useEffect(() => {
         if (existingRoutine) {
             setRoutineName(existingRoutine.name);
-            setExercises(existingRoutine.exercises);
+
+            setExercises(
+                existingRoutine.exercises.map((ex) => ({
+                    id: ex.id,
+                    name: ex.name,
+                    sets: ex.sets.map((s) => ({
+                        setNumber: s.setNumber,
+                        weight: String(s.weight ?? ""),
+                        reps: String(s.reps ?? ""),
+                        completed: s.completed,
+                    })),
+                })),
+            );
         }
     }, [existingRoutine]);
 
     const handleAddExercise = () => {
         if (!exerciseName.trim()) return;
 
-        const newExercise: Exercise = {
+        const newExercise: ExerciseUI = {
             id: crypto.randomUUID(),
             name: exerciseName,
             sets: [
                 {
                     setNumber: 1,
-                    weight: 0,
-                    reps: 0,
+                    weight: "",
+                    reps: "",
                     completed: false,
                 },
             ],
         };
 
-        setExercises([...exercises, newExercise]);
+        setExercises((prev) => [...prev, newExercise]);
         setExerciseName("");
     };
 
@@ -50,8 +75,8 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                               ...ex.sets,
                               {
                                   setNumber: ex.sets.length + 1,
-                                  weight: 0,
-                                  reps: 0,
+                                  weight: "",
+                                  reps: "",
                                   completed: false,
                               },
                           ],
@@ -70,12 +95,9 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
             if (!/^\d*$/.test(value)) return;
         }
 
-        const parsedValue =
-            value === ""
-                ? 0
-                : field === "weight"
-                  ? parseFloat(value)
-                  : parseInt(value);
+        if (field === "weight") {
+            if (!/^\d*\.?\d*$/.test(value)) return;
+        }
 
         setExercises((prev) =>
             prev.map((ex) =>
@@ -85,7 +107,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                           ...ex,
                           sets: ex.sets.map((s) =>
                               s.setNumber === setNumber
-                                  ? { ...s, [field]: parsedValue }
+                                  ? { ...s, [field]: value }
                                   : s,
                           ),
                       },
@@ -97,7 +119,16 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         const routine: Routine = {
             id: existingRoutine?.id ?? crypto.randomUUID(),
             name: routineName,
-            exercises,
+            exercises: exercises.map((ex) => ({
+                id: ex.id,
+                name: ex.name,
+                sets: ex.sets.map((s) => ({
+                    setNumber: s.setNumber,
+                    weight: Number(s.weight || 0),
+                    reps: Number(s.reps || 0),
+                    completed: s.completed,
+                })),
+            })),
         };
 
         onSaveRoutine(routine);
@@ -105,7 +136,6 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-            {/* TOP BAR */}
             <div className="sticky top-0 bg-gray-950 border-b border-gray-800 px-6 pt-6 pb-4">
                 <div className="grid grid-cols-3 items-center mb-4">
                     <button
@@ -173,7 +203,8 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                 <span>{s.setNumber}</span>
 
                                 <input
-                                    value={s.weight === 0 ? "" : s.weight}
+                                    className="bg-gray-700 p-1 rounded"
+                                    value={s.weight}
                                     onChange={(e) =>
                                         handleUpdateSet(
                                             ex.id,
@@ -182,12 +213,12 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                             e.target.value,
                                         )
                                     }
-                                    className="bg-gray-700 p-1 rounded"
                                     inputMode="decimal"
                                 />
 
                                 <input
-                                    value={s.reps === 0 ? "" : s.reps}
+                                    className="bg-gray-700 p-1 rounded"
+                                    value={s.reps}
                                     onChange={(e) =>
                                         handleUpdateSet(
                                             ex.id,
@@ -196,7 +227,6 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                             e.target.value,
                                         )
                                     }
-                                    className="bg-gray-700 p-1 rounded"
                                     inputMode="numeric"
                                 />
                             </div>
