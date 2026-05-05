@@ -4,6 +4,7 @@ interface HomePageProps {
     onCreateRoutine: () => void;
     onEditRoutine: (routine: Routine) => void;
     onStartWorkout: (routine: Routine) => void;
+    onDeleteRoutine: (id: string) => void;
     routines: Routine[];
 }
 
@@ -11,6 +12,7 @@ function HomePage({
     onCreateRoutine,
     onEditRoutine,
     onStartWorkout,
+    onDeleteRoutine,
     routines,
 }: HomePageProps) {
     return (
@@ -28,8 +30,15 @@ function HomePage({
                 {routines.map((routine) => (
                     <div
                         key={routine.id}
-                        className="bg-gray-800 p-4 rounded-lg"
+                        className="bg-gray-800 p-4 rounded-lg relative"
                     >
+                        <button
+                            onClick={() => onDeleteRoutine(routine.id)}
+                            className="absolute top-2 right-2 text-red-400"
+                        >
+                            🗙
+                        </button>
+
                         <button
                             onClick={() => onEditRoutine(routine)}
                             className="text-center w-full"
