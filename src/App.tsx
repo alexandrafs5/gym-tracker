@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HomePage from "./pages/HomePage";
 import RoutineBuilderPage from "./pages/RoutineBuilderPage";
 import ActiveWorkoutPage from "./pages/ActiveWorkoutPage";
