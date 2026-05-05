@@ -21,6 +21,19 @@ function App() {
     useEffect(() => {
         saveRoutines(routines);
     }, [routines]);
+    useEffect(() => {
+        const splash = document.getElementById("splash-screen");
+        if (splash) {
+            setTimeout(() => {
+                splash.style.opacity = "0";
+                splash.style.transition = "0.4s ease";
+
+                setTimeout(() => {
+                    splash.remove();
+                }, 400);
+            }, 600);
+        }
+    }, []);
 
     const handleCreate = () => {
         setEditingRoutine(null);
