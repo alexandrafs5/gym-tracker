@@ -3,10 +3,16 @@ import type { Routine } from "../types/workout";
 interface HomePageProps {
     onCreateRoutine: () => void;
     onEditRoutine: (routine: Routine) => void;
+    onStartWorkout: (routine: Routine) => void;
     routines: Routine[];
 }
 
-function HomePage({ onCreateRoutine, onEditRoutine, routines }: HomePageProps) {
+function HomePage({
+    onCreateRoutine,
+    onEditRoutine,
+    onStartWorkout,
+    routines,
+}: HomePageProps) {
     return (
         <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center px-6 py-10">
             <button
@@ -16,19 +22,30 @@ function HomePage({ onCreateRoutine, onEditRoutine, routines }: HomePageProps) {
                 + New Routine
             </button>
 
-            <h1 className="text-3xl font-bold mb-8 text-center">My Routines</h1>
+            <h1 className="text-3xl font-bold mb-8">My Routines</h1>
 
             <div className="w-full max-w-md space-y-4">
                 {routines.map((routine) => (
-                    <button
+                    <div
                         key={routine.id}
-                        onClick={() => onEditRoutine(routine)}
-                        className="w-full bg-gray-800 p-4 rounded-lg text-left"
+                        className="bg-gray-800 p-4 rounded-lg"
                     >
-                        <h2 className="text-xl font-semibold">
-                            {routine.name}
-                        </h2>
-                    </button>
+                        <button
+                            onClick={() => onEditRoutine(routine)}
+                            className="text-center w-full"
+                        >
+                            <h2 className="text-xl font-semibold">
+                                {routine.name}
+                            </h2>
+                        </button>
+
+                        <button
+                            onClick={() => onStartWorkout(routine)}
+                            className="mt-3 bg-green-500 text-black px-3 py-1 rounded-lg text-sm w-full"
+                        >
+                            Start Workout
+                        </button>
+                    </div>
                 ))}
             </div>
         </div>
