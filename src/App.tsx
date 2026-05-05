@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import HomePage from "./pages/HomePage";
 import RoutineBuilderPage from "./pages/RoutineBuilderPage";
 import ActiveWorkoutPage from "./pages/ActiveWorkoutPage";
 import type { Routine, ActiveWorkout } from "./types/workout";
+import { loadRoutines, saveRoutines } from "./utils/storage";
 
 type View = "home" | "builder" | "workout";
 
 function App() {
     const [view, setView] = useState<View>("home");
-    const [routines, setRoutines] = useState<Routine[]>([]);
+    const [routines, setRoutines] = useState<Routine[]>(() => loadRoutines());
+    useEffect(() => {
+        saveRoutines(routines);
+    }, [routines]);
     const [editingRoutine, setEditingRoutine] = useState<Routine | null>(null);
     const [activeWorkout, setActiveWorkout] = useState<ActiveWorkout | null>(
         null,
