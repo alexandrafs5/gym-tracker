@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Routine, Exercise } from "../types/workout";
 
 interface RoutineBuilderPageProps {
     onBack: () => void;
     onSaveRoutine: (routine: Routine) => void;
+    existingRoutine: Routine | null;
 }
 
 function RoutineBuilderPage({
     onBack,
     onSaveRoutine,
+    existingRoutine,
 }: RoutineBuilderPageProps) {
     const [routineName, setRoutineName] = useState("");
     const [exerciseName, setExerciseName] = useState("");
     const [exercises, setExercises] = useState<Exercise[]>([]);
+
+    // Cargar rutina existente
+    useEffect(() => {
+        if (existingRoutine) {
+            setRoutineName(existingRoutine.name);
+            setExercises(existingRoutine.exercises);
+        }
+    }, [existingRoutine]);
 
     const handleAddExercise = () => {
         if (!exerciseName.trim()) return;
@@ -79,13 +89,13 @@ function RoutineBuilderPage({
     const handleSave = () => {
         if (!routineName.trim()) return;
 
-        const newRoutine: Routine = {
-            id: crypto.randomUUID(),
+        const updatedRoutine: Routine = {
+            id: existingRoutine?.id ?? crypto.randomUUID(),
             name: routineName,
             exercises,
         };
 
-        onSaveRoutine(newRoutine);
+        onSaveRoutine(updatedRoutine);
     };
 
     return (
