@@ -25,3 +25,4 @@ A minimal workout tracking web app built with React + TypeScript.
 
 ## Live demo
 
+https://gym-tracker-jade-nine.vercel.app/
