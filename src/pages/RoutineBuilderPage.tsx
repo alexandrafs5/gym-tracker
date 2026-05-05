@@ -70,10 +70,6 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
             if (!/^\d*$/.test(value)) return;
         }
 
-        if (field === "weight") {
-            if (!/^\d*\.?\d*$/.test(value)) return;
-        }
-
         const parsedValue =
             value === ""
                 ? 0
