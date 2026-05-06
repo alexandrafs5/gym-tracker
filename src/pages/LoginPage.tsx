@@ -29,6 +29,12 @@ function LoginPage() {
                 setModalMessage(
                     "Account created! Check your email for confirmation.",
                 );
+
+                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
+                setIsSignup(false);
+                setShowPassword(false);
             }
         } else {
             const { error } = await supabase.auth.signInWithPassword({
@@ -104,8 +110,10 @@ function LoginPage() {
                 <button
                     onClick={() => {
                         setIsSignup(!isSignup);
+                        setEmail("");
                         setPassword("");
                         setConfirmPassword("");
+                        setShowPassword(false);
                     }}
                     className="mt-4 text-gray-400"
                 >
