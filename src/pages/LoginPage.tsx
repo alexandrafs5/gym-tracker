@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabase";
 function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -11,6 +12,11 @@ function LoginPage() {
         e.preventDefault();
 
         if (isSignup) {
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
             const { error } = await supabase.auth.signUp({
                 email,
                 password,
@@ -69,6 +75,26 @@ function LoginPage() {
                     </button>
                 </div>
 
+                {isSignup && (
+                    <div className="relative mb-4">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="w-full p-3 rounded-lg bg-gray-800 pr-16"
+                        />
+
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400"
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                )}
+
                 <button
                     type="submit"
                     className="bg-white text-black px-6 py-3 rounded-lg font-semibold w-full"
@@ -78,7 +104,11 @@ function LoginPage() {
             </form>
 
             <button
-                onClick={() => setIsSignup(!isSignup)}
+                onClick={() => {
+                    setIsSignup(!isSignup);
+                    setPassword("");
+                    setConfirmPassword("");
+                }}
                 className="mt-4 text-gray-400"
             >
                 {isSignup
