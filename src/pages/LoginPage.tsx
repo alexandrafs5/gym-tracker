@@ -5,6 +5,7 @@ function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isSignup, setIsSignup] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -50,13 +51,23 @@ function LoginPage() {
                     className="w-full p-3 rounded-lg bg-gray-800 mb-4"
                 />
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-gray-800 mb-4"
-                />
+                <div className="relative mb-4">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full p-3 rounded-lg bg-gray-800 pr-16"
+                    />
+
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400"
+                    >
+                        {showPassword ? "Hide" : "Show"}
+                    </button>
+                </div>
 
                 <button
                     type="submit"
