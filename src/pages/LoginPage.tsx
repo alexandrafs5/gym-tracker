@@ -6,7 +6,9 @@ function LoginPage() {
     const [password, setPassword] = useState("");
     const [isSignup, setIsSignup] = useState(false);
 
-    const handleAuth = async () => {
+    const handleAuth = async (e: React.FormEvent) => {
+        e.preventDefault();
+
         if (isSignup) {
             const { error } = await supabase.auth.signUp({
                 email,
@@ -36,28 +38,33 @@ function LoginPage() {
                 {isSignup ? "Sign Up" : "Login"}
             </h1>
 
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full max-w-sm p-3 rounded-lg bg-gray-800 mb-4"
-            />
-
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full max-w-sm p-3 rounded-lg bg-gray-800 mb-4"
-            />
-
-            <button
-                onClick={handleAuth}
-                className="bg-white text-black px-6 py-3 rounded-lg font-semibold w-full max-w-sm"
+            <form
+                onSubmit={handleAuth}
+                className="w-full max-w-sm flex flex-col"
             >
-                {isSignup ? "Create Account" : "Login"}
-            </button>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-gray-800 mb-4"
+                />
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-3 rounded-lg bg-gray-800 mb-4"
+                />
+
+                <button
+                    type="submit"
+                    className="bg-white text-black px-6 py-3 rounded-lg font-semibold w-full"
+                >
+                    {isSignup ? "Create Account" : "Login"}
+                </button>
+            </form>
 
             <button
                 onClick={() => setIsSignup(!isSignup)}

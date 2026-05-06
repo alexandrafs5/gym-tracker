@@ -63,6 +63,18 @@ function App() {
         };
     }, []);
 
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setRoutines(loadRoutines());
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, []);
+
     if (loadingAuth) {
         return (
             <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
