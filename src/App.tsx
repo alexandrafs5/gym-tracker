@@ -4,6 +4,9 @@ import RoutineBuilderPage from "./pages/RoutineBuilderPage";
 import ActiveWorkoutPage from "./pages/ActiveWorkoutPage";
 import type { Routine, ActiveWorkout } from "./types/workout";
 import { loadRoutines, saveRoutines } from "./utils/storage";
+import type { Session } from "@supabase/supabase-js";
+import { supabase } from "./lib/supabase";
+import LoginPage from "./pages/LoginPage";
 
 type View = "home" | "builder" | "workout";
 
@@ -17,6 +20,9 @@ function App() {
     );
 
     const [routineToDelete, setRoutineToDelete] = useState<string | null>(null);
+
+    const [session, setSession] = useState<Session | null>(null);
+    const [loadingAuth, setLoadingAuth] = useState(true);
 
     useEffect(() => {
         saveRoutines(routines);
@@ -34,6 +40,40 @@ function App() {
             }, 600);
         }
     }, []);
+
+    useEffect(() => {
+        const getSession = async () => {
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+            setSession(session);
+            setLoadingAuth(false);
+        };
+
+        getSession();
+
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+
+    if (loadingAuth) {
+        return (
+            <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+                Loading...
+            </div>
+        );
+    }
+
+    if (!session) {
+        return <LoginPage />;
+    }
 
     const handleCreate = () => {
         setEditingRoutine(null);

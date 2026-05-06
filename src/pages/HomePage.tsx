@@ -1,4 +1,5 @@
 import type { Routine } from "../types/workout";
+import { supabase } from "../lib/supabase";
 
 interface HomePageProps {
     onCreateRoutine: () => void;
@@ -17,6 +18,13 @@ function HomePage({
 }: HomePageProps) {
     return (
         <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center px-6 py-10">
+            <button
+                onClick={() => supabase.auth.signOut()}
+                className="absolute top-4 left-4 text-gray-400"
+            >
+                Logout
+            </button>
+
             <button
                 onClick={onCreateRoutine}
                 className="bg-white text-black px-6 py-3 rounded-lg font-semibold mb-8"
@@ -41,7 +49,7 @@ function HomePage({
 
                         <button
                             onClick={() => onEditRoutine(routine)}
-                            className="text-center w-full"
+                            className="text-left w-full"
                         >
                             <h2 className="text-xl font-semibold">
                                 {routine.name}
