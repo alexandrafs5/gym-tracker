@@ -3,16 +3,20 @@ import HomePage from "./pages/HomePage";
 import RoutineBuilderPage from "./pages/RoutineBuilderPage";
 import ActiveWorkoutPage from "./pages/ActiveWorkoutPage";
 import type { Routine, ActiveWorkout } from "./types/workout";
-import { loadRoutines, saveRoutines } from "./utils/storage";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "./lib/supabase";
 import LoginPage from "./pages/LoginPage";
+import {
+    fetchRoutines,
+    saveRoutine,
+    deleteRoutine,
+} from "./utils/supabaseRoutines";
 
 type View = "home" | "builder" | "workout";
 
 function App() {
     const [view, setView] = useState<View>("home");
-    const [routines, setRoutines] = useState<Routine[]>(() => loadRoutines());
+    const [routines, setRoutines] = useState<Routine[]>([]);
 
     const [editingRoutine, setEditingRoutine] = useState<Routine | null>(null);
     const [activeWorkout, setActiveWorkout] = useState<ActiveWorkout | null>(
@@ -25,10 +29,8 @@ function App() {
     const [loadingAuth, setLoadingAuth] = useState(true);
 
     useEffect(() => {
-        saveRoutines(routines);
-    }, [routines]);
-    useEffect(() => {
         const splash = document.getElementById("splash-screen");
+
         if (splash) {
             setTimeout(() => {
                 splash.style.opacity = "0";
@@ -46,6 +48,7 @@ function App() {
             const {
                 data: { session },
             } = await supabase.auth.getSession();
+
             setSession(session);
             setLoadingAuth(false);
         };
@@ -64,16 +67,17 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const handleStorageChange = () => {
-            setRoutines(loadRoutines());
+        const loadUserRoutines = async () => {
+            if (session) {
+                const routinesData = await fetchRoutines();
+                setRoutines(routinesData);
+            } else {
+                setRoutines([]);
+            }
         };
 
-        window.addEventListener("storage", handleStorageChange);
-
-        return () => {
-            window.removeEventListener("storage", handleStorageChange);
-        };
-    }, []);
+        loadUserRoutines();
+    }, [session]);
 
     if (loadingAuth) {
         return (
@@ -97,7 +101,7 @@ function App() {
         setView("builder");
     };
 
-    const handleSaveRoutine = (routine: Routine) => {
+    const handleSaveRoutine = async (routine: Routine) => {
         setRoutines((prev) => {
             const exists = prev.find((r) => r.id === routine.id);
 
@@ -108,6 +112,8 @@ function App() {
             return [...prev, routine];
         });
 
+        await saveRoutine(routine);
+
         setView("home");
         setEditingRoutine(null);
     };
@@ -116,10 +122,12 @@ function App() {
         setRoutineToDelete(id);
     };
 
-    const confirmDeleteRoutine = () => {
+    const confirmDeleteRoutine = async () => {
         if (!routineToDelete) return;
 
         setRoutines((prev) => prev.filter((r) => r.id !== routineToDelete));
+
+        await deleteRoutine(routineToDelete);
 
         setRoutineToDelete(null);
     };
