@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ActiveWorkout } from "../types/workout";
+import { saveWorkoutHistory } from "../utils/supabaseHistory";
 
 interface Props {
     workout: ActiveWorkout;
@@ -29,6 +30,7 @@ type WorkoutUI = {
 
 function ActiveWorkoutPage({ workout, onExit }: Props) {
     const [time, setTime] = useState(0);
+
     const [data, setData] = useState<WorkoutUI>(() => ({
         routineName: workout.routineName,
         startTime: workout.startTime,
@@ -57,6 +59,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
     const format = (ms: number) => {
         const m = Math.floor(ms / 60000);
         const s = Math.floor((ms % 60000) / 1000);
+
         return `${m}:${s.toString().padStart(2, "0")}`;
     };
 
@@ -83,8 +86,31 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
         }));
     };
 
+    const handleFinishWorkout = async () => {
+        const completedWorkout = {
+            routineName: data.routineName,
+            startTime: data.startTime,
+            exercises: data.exercises.map((ex) => ({
+                id: ex.id,
+                name: ex.name,
+                sets: ex.sets.map((s) => ({
+                    setNumber: s.setNumber,
+                    plannedWeight: s.plannedWeight,
+                    plannedReps: s.plannedReps,
+                    actualWeight: Number(s.actualWeight || s.plannedWeight),
+                    actualReps: Number(s.actualReps || s.plannedReps),
+                    completed: s.completed,
+                })),
+            })),
+        };
+
+        await saveWorkoutHistory(completedWorkout);
+
+        onExit();
+    };
+
     return (
-        <div className="min-h-screen bg-gray-950 text-white p-4">
+        <div className="min-h-screen bg-gray-950 text-white p-4 pb-24">
             <div className="flex justify-between items-center mb-4">
                 <button onClick={onExit} className="text-gray-400">
                     Discard
@@ -92,7 +118,10 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
 
                 <div className="font-bold">{data.routineName}</div>
 
-                <button onClick={onExit} className="text-green-400">
+                <button
+                    onClick={handleFinishWorkout}
+                    className="text-green-400"
+                >
                     Finish
                 </button>
             </div>

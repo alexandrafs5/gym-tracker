@@ -15,6 +15,7 @@ import {
 import ProfilePage from "./pages/ProfilePage";
 import HistoryDetailPage from "./pages/HistoryDetailPage";
 import BottomNav from "./components/BottomNav";
+import type { WorkoutHistory } from "./types/history";
 
 type View = "home" | "profile" | "historyDetail" | "builder" | "workout";
 
@@ -32,9 +33,8 @@ function App() {
     const [session, setSession] = useState<Session | null>(null);
     const [loadingAuth, setLoadingAuth] = useState(true);
 
-    const [selectedHistoryWorkout, setSelectedHistoryWorkout] = useState<
-        any | null
-    >(null);
+    const [selectedHistory, setSelectedHistory] =
+        useState<WorkoutHistory | null>(null);
 
     useEffect(() => {
         const splash = document.getElementById("splash-screen");
@@ -188,6 +188,11 @@ function App() {
         setView("home");
     };
 
+    const openHistoryDetail = (workout: WorkoutHistory) => {
+        setSelectedHistory(workout);
+        setView("historyDetail");
+    };
+
     if (view === "builder") {
         return (
             <RoutineBuilderPage
@@ -201,9 +206,7 @@ function App() {
     if (view === "profile") {
         return (
             <>
-                <ProfilePage
-                    onOpenHistoryDetail={() => setView("historyDetail")}
-                />
+                <ProfilePage onOpenHistoryDetail={openHistoryDetail} />
 
                 <BottomNav
                     currentView="profile"
@@ -214,8 +217,13 @@ function App() {
         );
     }
 
-    if (view === "historyDetail") {
-        return <HistoryDetailPage onBack={() => setView("profile")} />;
+    if (view === "historyDetail" && selectedHistory) {
+        return (
+            <HistoryDetailPage
+                workout={selectedHistory}
+                onBack={() => setView("profile")}
+            />
+        );
     }
 
     if (view === "workout" && activeWorkout) {
