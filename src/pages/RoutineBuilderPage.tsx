@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Routine } from "../types/workout";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+    SortableContext,
+    verticalListSortingStrategy,
+    useSortable,
+    arrayMove,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface Props {
     onBack: () => void;
@@ -19,6 +27,36 @@ type ExerciseUI = {
     name: string;
     sets: SetUI[];
 };
+
+function SortableExercise({
+    ex,
+    children,
+}: {
+    ex: ExerciseUI;
+    children: React.ReactNode;
+}) {
+    const { attributes, listeners, setNodeRef, transform, transition } =
+        useSortable({ id: ex.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
+
+    return (
+        <div ref={setNodeRef} style={style}>
+            <div
+                {...attributes}
+                {...listeners}
+                className="mb-2 text-gray-500 cursor-grab active:cursor-grabbing"
+            >
+                ☰ Hold to reorder
+            </div>
+
+            {children}
+        </div>
+    );
+}
 
 function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
     const [routineName, setRoutineName] = useState("");
@@ -99,13 +137,9 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         field: "weight" | "reps",
         value: string,
     ) => {
-        if (field === "reps") {
-            if (!/^\d*$/.test(value)) return;
-        }
+        if (field === "reps" && !/^\d*$/.test(value)) return;
 
-        if (field === "weight") {
-            if (!/^\d*\.?\d*$/.test(value)) return;
-        }
+        if (field === "weight" && !/^\d*\.?\d*$/.test(value)) return;
 
         setExercises((prev) =>
             prev.map((ex) =>
@@ -140,6 +174,20 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         };
 
         onSaveRoutine(routine);
+    };
+
+    const handleDragEnd = (event: any) => {
+        const { active, over } = event;
+
+        if (!over || active.id === over.id) return;
+
+        setExercises((items) => {
+            const oldIndex = items.findIndex((item) => item.id === active.id);
+
+            const newIndex = items.findIndex((item) => item.id === over.id);
+
+            return arrayMove(items, oldIndex, newIndex);
+        });
     };
 
     return (
@@ -188,71 +236,83 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                     + Add Exercise
                 </button>
 
-                {exercises.map((ex) => (
-                    <div
-                        key={ex.id}
-                        className="bg-gray-800 p-4 rounded-lg mb-6"
+                <DndContext
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext
+                        items={exercises.map((ex) => ex.id)}
+                        strategy={verticalListSortingStrategy}
                     >
-                        <input
-                            value={ex.name}
-                            onChange={(e) =>
-                                handleUpdateExerciseName(ex.id, e.target.value)
-                            }
-                            className="w-full bg-transparent border-b border-gray-600 text-lg font-semibold mb-3 pb-1"
-                            placeholder="Exercise name"
-                        />
+                        {exercises.map((ex) => (
+                            <SortableExercise key={ex.id} ex={ex}>
+                                <div className="bg-gray-800 p-4 rounded-lg mb-6">
+                                    <input
+                                        value={ex.name}
+                                        onChange={(e) =>
+                                            handleUpdateExerciseName(
+                                                ex.id,
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="w-full bg-transparent border-b border-gray-600 text-lg font-semibold mb-3 pb-1"
+                                        placeholder="Exercise name"
+                                    />
 
-                        <div className="grid grid-cols-3 text-gray-400 mb-2">
-                            <span>Set</span>
-                            <span>Lbs</span>
-                            <span>Reps</span>
-                        </div>
+                                    <div className="grid grid-cols-3 text-gray-400 mb-2">
+                                        <span>Set</span>
+                                        <span>Lbs</span>
+                                        <span>Reps</span>
+                                    </div>
 
-                        {ex.sets.map((s) => (
-                            <div
-                                key={s.setNumber}
-                                className="grid grid-cols-3 gap-2 mb-2"
-                            >
-                                <span>{s.setNumber}</span>
+                                    {ex.sets.map((s) => (
+                                        <div
+                                            key={s.setNumber}
+                                            className="grid grid-cols-3 gap-2 mb-2"
+                                        >
+                                            <span>{s.setNumber}</span>
 
-                                <input
-                                    className="bg-gray-700 p-1 rounded"
-                                    value={s.weight}
-                                    onChange={(e) =>
-                                        handleUpdateSet(
-                                            ex.id,
-                                            s.setNumber,
-                                            "weight",
-                                            e.target.value,
-                                        )
-                                    }
-                                    inputMode="decimal"
-                                />
+                                            <input
+                                                className="bg-gray-700 p-1 rounded"
+                                                value={s.weight}
+                                                onChange={(e) =>
+                                                    handleUpdateSet(
+                                                        ex.id,
+                                                        s.setNumber,
+                                                        "weight",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                inputMode="decimal"
+                                            />
 
-                                <input
-                                    className="bg-gray-700 p-1 rounded"
-                                    value={s.reps}
-                                    onChange={(e) =>
-                                        handleUpdateSet(
-                                            ex.id,
-                                            s.setNumber,
-                                            "reps",
-                                            e.target.value,
-                                        )
-                                    }
-                                    inputMode="numeric"
-                                />
-                            </div>
+                                            <input
+                                                className="bg-gray-700 p-1 rounded"
+                                                value={s.reps}
+                                                onChange={(e) =>
+                                                    handleUpdateSet(
+                                                        ex.id,
+                                                        s.setNumber,
+                                                        "reps",
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                inputMode="numeric"
+                                            />
+                                        </div>
+                                    ))}
+
+                                    <button
+                                        onClick={() => handleAddSet(ex.id)}
+                                        className="text-blue-400 mt-2"
+                                    >
+                                        + Add Set
+                                    </button>
+                                </div>
+                            </SortableExercise>
                         ))}
-
-                        <button
-                            onClick={() => handleAddSet(ex.id)}
-                            className="text-blue-400 mt-2"
-                        >
-                            + Add Set
-                        </button>
-                    </div>
-                ))}
+                    </SortableContext>
+                </DndContext>
             </div>
         </div>
     );

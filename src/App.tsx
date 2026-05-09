@@ -10,6 +10,7 @@ import {
     fetchRoutines,
     saveRoutine,
     deleteRoutine,
+    updateRoutineOrder,
 } from "./utils/supabaseRoutines";
 
 type View = "home" | "builder" | "workout";
@@ -102,17 +103,23 @@ function App() {
     };
 
     const handleSaveRoutine = async (routine: Routine) => {
-        setRoutines((prev) => {
-            const exists = prev.find((r) => r.id === routine.id);
+        const exists = routines.find((r) => r.id === routine.id);
 
-            if (exists) {
-                return prev.map((r) => (r.id === routine.id ? routine : r));
-            }
+        let updatedRoutines: Routine[];
 
-            return [...prev, routine];
-        });
+        if (exists) {
+            updatedRoutines = routines.map((r) =>
+                r.id === routine.id ? routine : r,
+            );
+        } else {
+            updatedRoutines = [...routines, routine];
+        }
 
-        await saveRoutine(routine);
+        setRoutines(updatedRoutines);
+
+        const position = updatedRoutines.findIndex((r) => r.id === routine.id);
+
+        await saveRoutine(routine, position);
 
         setView("home");
         setEditingRoutine(null);
@@ -125,15 +132,25 @@ function App() {
     const confirmDeleteRoutine = async () => {
         if (!routineToDelete) return;
 
-        setRoutines((prev) => prev.filter((r) => r.id !== routineToDelete));
+        const updatedRoutines = routines.filter(
+            (r) => r.id !== routineToDelete,
+        );
+
+        setRoutines(updatedRoutines);
 
         await deleteRoutine(routineToDelete);
+        await updateRoutineOrder(updatedRoutines);
 
         setRoutineToDelete(null);
     };
 
     const cancelDeleteRoutine = () => {
         setRoutineToDelete(null);
+    };
+
+    const handleReorderRoutines = async (newRoutines: Routine[]) => {
+        setRoutines(newRoutines);
+        await updateRoutineOrder(newRoutines);
     };
 
     const startWorkout = (routine: Routine) => {
@@ -188,6 +205,7 @@ function App() {
                 onEditRoutine={handleEdit}
                 onStartWorkout={startWorkout}
                 onDeleteRoutine={handleDeleteRoutine}
+                onReorderRoutines={handleReorderRoutines}
             />
 
             {routineToDelete && (
