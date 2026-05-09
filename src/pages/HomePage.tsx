@@ -8,6 +8,7 @@ import {
     arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import SyncStatusIndicator from "../components/SyncStatusIndicator";
 
 interface HomePageProps {
     onCreateRoutine: () => void;
@@ -75,13 +76,17 @@ function HomePage({
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center px-6 py-10 pb-24">
+        <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center px-6 py-10 pb-24 relative">
             <button
                 onClick={() => supabase.auth.signOut()}
                 className="absolute top-4 left-4 text-gray-400"
             >
                 Logout
             </button>
+
+            <div className="absolute top-4 right-4">
+                <SyncStatusIndicator />
+            </div>
 
             <button
                 onClick={onCreateRoutine}

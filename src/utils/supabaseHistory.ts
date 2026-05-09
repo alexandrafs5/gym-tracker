@@ -7,39 +7,11 @@ export async function saveWorkoutHistory(workout: any) {
 
     if (!user) return;
 
-    const duration = Math.floor((Date.now() - workout.startTime) / 1000);
-
     const { error } = await supabase.from("workout_history").insert({
+        ...workout,
         user_id: user.id,
-        routine_name: workout.routineName,
-        duration,
-        exercises: workout.exercises,
+        completed_at: workout.completed_at ?? new Date().toISOString(),
     });
 
-    if (error) {
-        console.error("Save workout history error:", error);
-    }
-}
-
-export async function fetchWorkoutHistory() {
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) return [];
-
-    const { data, error } = await supabase
-        .from("workout_history")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("completed_at", {
-            ascending: false,
-        });
-
-    if (error) {
-        console.error("Fetch workout history error:", error);
-        return [];
-    }
-
-    return data;
+    if (error) console.error(error);
 }
