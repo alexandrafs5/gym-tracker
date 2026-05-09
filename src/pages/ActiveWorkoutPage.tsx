@@ -87,21 +87,31 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
     };
 
     const handleFinishWorkout = async () => {
+        const completedExercises = data.exercises
+            .map((ex) => ({
+                ...ex,
+                sets: ex.sets
+                    .filter((s) => s.completed)
+                    .map((s) => ({
+                        setNumber: s.setNumber,
+                        plannedWeight: s.plannedWeight,
+                        plannedReps: s.plannedReps,
+                        actualWeight: Number(s.actualWeight || s.plannedWeight),
+                        actualReps: Number(s.actualReps || s.plannedReps),
+                        completed: true,
+                    })),
+            }))
+            .filter((ex) => ex.sets.length > 0);
+
+        if (completedExercises.length === 0) {
+            onExit();
+            return;
+        }
+
         const completedWorkout = {
             routineName: data.routineName,
             startTime: data.startTime,
-            exercises: data.exercises.map((ex) => ({
-                id: ex.id,
-                name: ex.name,
-                sets: ex.sets.map((s) => ({
-                    setNumber: s.setNumber,
-                    plannedWeight: s.plannedWeight,
-                    plannedReps: s.plannedReps,
-                    actualWeight: Number(s.actualWeight || s.plannedWeight),
-                    actualReps: Number(s.actualReps || s.plannedReps),
-                    completed: s.completed,
-                })),
-            })),
+            exercises: completedExercises,
         };
 
         await saveWorkoutHistory(completedWorkout);
