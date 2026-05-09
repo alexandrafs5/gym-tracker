@@ -1,4 +1,6 @@
 import { supabase } from "../lib/supabase";
+import { isOnline } from "./network";
+import { loadLocalHistory, saveLocalHistory } from "./offlineStorage";
 
 export async function saveWorkoutHistory(workout: any) {
     const {
@@ -7,15 +9,27 @@ export async function saveWorkoutHistory(workout: any) {
 
     if (!user) return;
 
-    const { error } = await supabase.from("workout_history").insert({
+    const payload = {
         user_id: user.id,
         routine_name: workout.routineName,
         completed_at: new Date().toISOString(),
         duration: workout.duration,
         exercises: workout.exercises,
-    });
+    };
 
-    if (error) console.error(error);
+    if (!isOnline()) {
+        const local = loadLocalHistory();
+        saveLocalHistory([payload, ...local]);
+        return;
+    }
+
+    const { error } = await supabase.from("workout_history").insert(payload);
+
+    if (error) {
+        console.error(error);
+        const local = loadLocalHistory();
+        saveLocalHistory([payload, ...local]);
+    }
 }
 
 export async function fetchWorkoutHistory() {
@@ -25,6 +39,10 @@ export async function fetchWorkoutHistory() {
 
     if (!user) return [];
 
+    if (!isOnline()) {
+        return loadLocalHistory();
+    }
+
     const { data, error } = await supabase
         .from("workout_history")
         .select("*")
@@ -33,8 +51,9 @@ export async function fetchWorkoutHistory() {
 
     if (error) {
         console.error(error);
-        return [];
+        return loadLocalHistory();
     }
 
+    saveLocalHistory(data ?? []);
     return data ?? [];
 }

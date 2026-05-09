@@ -20,7 +20,7 @@ export async function syncPendingHistory() {
     if (!user) return;
 
     let local = loadLocalHistory();
-    const remaining: any[] = [];
+    const remaining = [];
 
     for (const item of pending) {
         try {
@@ -28,8 +28,11 @@ export async function syncPendingHistory() {
                 const { error } = await supabase
                     .from("workout_history")
                     .insert({
-                        ...item.workout,
                         user_id: user.id,
+                        routine_name: item.workout.routineName,
+                        duration: item.workout.duration,
+                        exercises: item.workout.exercises,
+                        completed_at: new Date().toISOString(),
                     });
 
                 if (!error) {
