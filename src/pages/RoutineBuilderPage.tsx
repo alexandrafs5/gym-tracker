@@ -64,6 +64,14 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         setExerciseName("");
     };
 
+    const handleUpdateExerciseName = (exerciseId: string, newName: string) => {
+        setExercises((prev) =>
+            prev.map((ex) =>
+                ex.id === exerciseId ? { ...ex, name: newName } : ex,
+            ),
+        );
+    };
+
     const handleAddSet = (exerciseId: string) => {
         setExercises((prev) =>
             prev.map((ex) =>
@@ -185,9 +193,14 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                         key={ex.id}
                         className="bg-gray-800 p-4 rounded-lg mb-6"
                     >
-                        <h2 className="text-lg font-semibold mb-3">
-                            {ex.name}
-                        </h2>
+                        <input
+                            value={ex.name}
+                            onChange={(e) =>
+                                handleUpdateExerciseName(ex.id, e.target.value)
+                            }
+                            className="w-full bg-transparent border-b border-gray-600 text-lg font-semibold mb-3 pb-1"
+                            placeholder="Exercise name"
+                        />
 
                         <div className="grid grid-cols-3 text-gray-400 mb-2">
                             <span>Set</span>
