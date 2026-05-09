@@ -48,6 +48,10 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
         })),
     }));
 
+    const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
+
+    const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(Date.now() - workout.startTime);
@@ -122,14 +126,15 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
     return (
         <div className="min-h-screen bg-gray-950 text-white p-4 pb-24">
             <div className="flex justify-between items-center mb-4">
-                <button onClick={onExit} className="text-gray-400">
+                <button
+                    onClick={() => setShowDiscardConfirm(true)}
+                    className="text-gray-400"
+                >
                     Discard
                 </button>
 
-                <div className="font-bold">{data.routineName}</div>
-
                 <button
-                    onClick={handleFinishWorkout}
+                    onClick={() => setShowFinishConfirm(true)}
                     className="text-green-400"
                 >
                     Finish
@@ -213,6 +218,66 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                     ))}
                 </div>
             ))}
+
+            {showDiscardConfirm && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+                    <div className="bg-gray-900 p-6 rounded-xl w-[300px] text-center border border-gray-700">
+                        <h2 className="text-lg font-semibold mb-2">
+                            Discard workout?
+                        </h2>
+
+                        <p className="text-gray-400 text-sm mb-6">
+                            This workout will not be saved.
+                        </p>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setShowDiscardConfirm(false)}
+                                className="flex-1 bg-gray-700 py-2 rounded-lg"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                onClick={onExit}
+                                className="flex-1 bg-red-500 text-black py-2 rounded-lg font-semibold"
+                            >
+                                Discard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showFinishConfirm && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+                    <div className="bg-gray-900 p-6 rounded-xl w-[300px] text-center border border-gray-700">
+                        <h2 className="text-lg font-semibold mb-2">
+                            Finish workout?
+                        </h2>
+
+                        <p className="text-gray-400 text-sm mb-6">
+                            Only completed sets will be saved.
+                        </p>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setShowFinishConfirm(false)}
+                                className="flex-1 bg-gray-700 py-2 rounded-lg"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                onClick={handleFinishWorkout}
+                                className="flex-1 bg-green-500 text-black py-2 rounded-lg font-semibold"
+                            >
+                                Finish
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
