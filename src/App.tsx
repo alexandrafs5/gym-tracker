@@ -12,8 +12,11 @@ import {
     deleteRoutine,
     updateRoutineOrder,
 } from "./utils/supabaseRoutines";
+import ProfilePage from "./pages/ProfilePage";
+import HistoryDetailPage from "./pages/HistoryDetailPage";
+import BottomNav from "./components/BottomNav";
 
-type View = "home" | "builder" | "workout";
+type View = "home" | "profile" | "historyDetail" | "builder" | "workout";
 
 function App() {
     const [view, setView] = useState<View>("home");
@@ -28,6 +31,10 @@ function App() {
 
     const [session, setSession] = useState<Session | null>(null);
     const [loadingAuth, setLoadingAuth] = useState(true);
+
+    const [selectedHistoryWorkout, setSelectedHistoryWorkout] = useState<
+        any | null
+    >(null);
 
     useEffect(() => {
         const splash = document.getElementById("splash-screen");
@@ -191,6 +198,26 @@ function App() {
         );
     }
 
+    if (view === "profile") {
+        return (
+            <>
+                <ProfilePage
+                    onOpenHistoryDetail={() => setView("historyDetail")}
+                />
+
+                <BottomNav
+                    currentView="profile"
+                    onGoHome={() => setView("home")}
+                    onGoProfile={() => setView("profile")}
+                />
+            </>
+        );
+    }
+
+    if (view === "historyDetail") {
+        return <HistoryDetailPage onBack={() => setView("profile")} />;
+    }
+
     if (view === "workout" && activeWorkout) {
         return (
             <ActiveWorkoutPage workout={activeWorkout} onExit={exitWorkout} />
@@ -206,6 +233,12 @@ function App() {
                 onStartWorkout={startWorkout}
                 onDeleteRoutine={handleDeleteRoutine}
                 onReorderRoutines={handleReorderRoutines}
+            />
+
+            <BottomNav
+                currentView="home"
+                onGoHome={() => setView("home")}
+                onGoProfile={() => setView("profile")}
             />
 
             {routineToDelete && (

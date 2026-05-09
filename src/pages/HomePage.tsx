@@ -75,7 +75,7 @@ function HomePage({
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center px-6 py-10">
+        <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center px-6 py-10 pb-24">
             <button
                 onClick={() => supabase.auth.signOut()}
                 className="absolute top-4 left-4 text-gray-400"
