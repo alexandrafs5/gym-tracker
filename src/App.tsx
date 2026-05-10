@@ -35,26 +35,39 @@ function App() {
         useState<WorkoutHistory | null>(null);
 
     useEffect(() => {
-        const getSession = async () => {
-            const {
-                data: { session },
-            } = await supabase.auth.getSession();
+        let mounted = true;
 
-            setSession(session);
+        const init = async () => {
+            const { data } = await supabase.auth.getSession();
+
+            if (!mounted) return;
+
+            setSession(data.session ?? null);
             setLoadingAuth(false);
         };
 
-        getSession();
+        init();
 
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
+            setLoadingAuth(false);
         });
 
         return () => {
-            subscription.unsubscribe();
+            mounted = false;
+            data.subscription.unsubscribe();
         };
+    }, []);
+
+    useEffect(() => {
+        const splash = document.getElementById("splash-screen");
+        if (!splash) return;
+
+        splash.style.opacity = "0";
+
+        setTimeout(() => {
+            splash.remove();
+        }, 300);
     }, []);
 
     useEffect(() => {
