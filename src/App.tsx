@@ -13,13 +13,11 @@ import {
     updateRoutineOrder,
 } from "./utils/supabaseRoutines";
 import ProfilePage from "./pages/ProfilePage";
-import HistoryDetailPage from "./pages/HistoryDetailPage";
 import BottomNav from "./components/BottomNav";
+import HistoryDetailPage from "./pages/HistoryDetailPage";
 import type { WorkoutHistory } from "./types/history";
-import { loadLocalRoutines } from "./utils/offlineStorage";
-import { isOnline } from "./utils/network";
 
-type View = "home" | "profile" | "historyDetail" | "builder" | "workout";
+type View = "home" | "profile" | "builder" | "workout" | "historyDetail";
 
 function App() {
     const [view, setView] = useState<View>("home");
@@ -29,8 +27,10 @@ function App() {
         null,
     );
     const [routineToDelete, setRoutineToDelete] = useState<string | null>(null);
+
     const [session, setSession] = useState<Session | null>(null);
     const [loadingAuth, setLoadingAuth] = useState(true);
+
     const [selectedHistory, setSelectedHistory] =
         useState<WorkoutHistory | null>(null);
 
@@ -39,6 +39,7 @@ function App() {
             const {
                 data: { session },
             } = await supabase.auth.getSession();
+
             setSession(session);
             setLoadingAuth(false);
         };
@@ -47,11 +48,13 @@ function App() {
 
         const {
             data: { subscription },
-        } = supabase.auth.onAuthStateChange((_e, session) => {
+        } = supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session);
         });
 
-        return () => subscription.unsubscribe();
+        return () => {
+            subscription.unsubscribe();
+        };
     }, []);
 
     useEffect(() => {
@@ -61,13 +64,8 @@ function App() {
                 return;
             }
 
-            const local = loadLocalRoutines();
-            setRoutines(local);
-
-            if (isOnline()) {
-                const fresh = await fetchRoutines();
-                setRoutines(fresh);
-            }
+            const data = await fetchRoutines();
+            setRoutines(data);
         };
 
         loadUserRoutines();
@@ -81,7 +79,9 @@ function App() {
         );
     }
 
-    if (!session) return <LoginPage />;
+    if (!session) {
+        return <LoginPage />;
+    }
 
     const handleCreate = () => {
         setEditingRoutine(null);
@@ -103,23 +103,31 @@ function App() {
         setRoutines(updated);
 
         const position = updated.findIndex((r) => r.id === routine.id);
+
         await saveRoutine(routine, position);
 
         setView("home");
         setEditingRoutine(null);
     };
 
-    const handleDeleteRoutine = (id: string) => setRoutineToDelete(id);
+    const handleDeleteRoutine = (id: string) => {
+        setRoutineToDelete(id);
+    };
 
     const confirmDeleteRoutine = async () => {
         if (!routineToDelete) return;
 
         const updated = routines.filter((r) => r.id !== routineToDelete);
+
         setRoutines(updated);
 
         await deleteRoutine(routineToDelete);
         await updateRoutineOrder(updated);
 
+        setRoutineToDelete(null);
+    };
+
+    const cancelDeleteRoutine = () => {
         setRoutineToDelete(null);
     };
 
@@ -167,7 +175,31 @@ function App() {
     }
 
     if (view === "profile") {
-        return <ProfilePage onOpenHistoryDetail={() => {}} />;
+        return (
+            <>
+                <ProfilePage
+                    onOpenHistoryDetail={(workout) => {
+                        setSelectedHistory(workout);
+                        setView("historyDetail");
+                    }}
+                />
+
+                <BottomNav
+                    currentView="profile"
+                    onGoHome={() => setView("home")}
+                    onGoProfile={() => setView("profile")}
+                />
+            </>
+        );
+    }
+
+    if (view === "historyDetail" && selectedHistory) {
+        return (
+            <HistoryDetailPage
+                workout={selectedHistory}
+                onBack={() => setView("profile")}
+            />
+        );
     }
 
     if (view === "workout" && activeWorkout) {
@@ -195,12 +227,30 @@ function App() {
 
             {routineToDelete && (
                 <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-                    <div className="bg-gray-900 p-6 rounded-xl">
-                        <p>Delete routine?</p>
-                        <button onClick={() => setRoutineToDelete(null)}>
-                            Cancel
-                        </button>
-                        <button onClick={confirmDeleteRoutine}>Delete</button>
+                    <div className="bg-gray-900 p-6 rounded-xl w-[300px] text-center border border-gray-700">
+                        <h2 className="text-lg font-semibold mb-2">
+                            Delete routine?
+                        </h2>
+
+                        <p className="text-gray-400 text-sm mb-6">
+                            This action cannot be undone.
+                        </p>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={cancelDeleteRoutine}
+                                className="flex-1 bg-gray-700 py-2 rounded-lg"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                onClick={confirmDeleteRoutine}
+                                className="flex-1 bg-red-500 text-black py-2 rounded-lg font-semibold"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

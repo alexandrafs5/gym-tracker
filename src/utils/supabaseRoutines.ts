@@ -12,7 +12,7 @@ export async function fetchRoutines() {
         data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) return [];
+    if (!user) return loadLocalRoutines();
 
     if (!isOnline()) {
         return loadLocalRoutines();

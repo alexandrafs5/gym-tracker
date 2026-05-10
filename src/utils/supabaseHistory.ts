@@ -12,7 +12,7 @@ export async function saveWorkoutHistory(workout: any) {
     const payload = {
         user_id: user.id,
         routine_name: workout.routineName,
-        completed_at: new Date().toISOString(),
+        completed_at: workout.completed_at,
         duration: workout.duration,
         exercises: workout.exercises,
     };
@@ -26,7 +26,6 @@ export async function saveWorkoutHistory(workout: any) {
     const { error } = await supabase.from("workout_history").insert(payload);
 
     if (error) {
-        console.error(error);
         const local = loadLocalHistory();
         saveLocalHistory([payload, ...local]);
     }
@@ -50,7 +49,6 @@ export async function fetchWorkoutHistory() {
         .order("completed_at", { ascending: false });
 
     if (error) {
-        console.error(error);
         return loadLocalHistory();
     }
 
