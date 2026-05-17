@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ActiveWorkout } from "../types/workout";
 import { saveWorkoutHistory } from "../utils/supabaseHistory";
-import {
-    loadPendingHistory,
-    savePendingHistory,
-    loadLocalHistory,
-    saveLocalHistory,
-} from "../utils/offlineStorage";
-import { isOnline } from "../utils/network";
 
 interface Props {
     workout: ActiveWorkout;
@@ -18,6 +11,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
     const [time, setTime] = useState(0);
     const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+    const [saving, setSaving] = useState(false);
 
     const [data, setData] = useState(() => ({
         routineName: workout.routineName,
@@ -76,6 +70,8 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
     };
 
     const handleFinishWorkout = async () => {
+        setSaving(true);
+
         const completedExercises = data.exercises
             .map((ex) => ({
                 ...ex,
@@ -93,39 +89,21 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
             .filter((ex) => ex.sets.length > 0);
 
         const completedWorkout = {
-            routineName: data.routineName,
+            routine_name: data.routineName,
             startTime: data.startTime,
             exercises: completedExercises,
             duration: Math.floor((Date.now() - data.startTime) / 1000),
             completed_at: new Date().toISOString(),
         };
 
-        if (!isOnline()) {
-            const pending = loadPendingHistory();
-
-            savePendingHistory([
-                ...pending,
-                { type: "save", workout: completedWorkout },
-            ]);
-
-            const local = loadLocalHistory();
-            saveLocalHistory([completedWorkout, ...local]);
-
-            onExit();
-            return;
-        }
-
         await saveWorkoutHistory(completedWorkout);
 
-        const local = loadLocalHistory();
-        saveLocalHistory([completedWorkout, ...local]);
-
+        setSaving(false);
         onExit();
     };
 
     return (
         <div className="min-h-screen bg-gray-950 text-white p-4 pb-24">
-            {/* HEADER */}
             <div className="flex justify-between mb-4">
                 <button
                     onClick={() => setShowDiscardConfirm(true)}
@@ -142,18 +120,15 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                 </button>
             </div>
 
-            {/* TIMER */}
             <div className="text-center text-2xl mb-6 font-mono">
                 {Math.floor(time / 60000)}:
                 {String(Math.floor((time % 60000) / 1000)).padStart(2, "0")}
             </div>
 
-            {/* EXERCISES */}
             {data.exercises.map((ex) => (
                 <div key={ex.id} className="bg-gray-800 p-4 rounded-xl mb-6">
                     <h2 className="mb-3 font-semibold">{ex.name}</h2>
 
-                    {/* HEADER */}
                     <div className="grid grid-cols-4 text-xs text-gray-400 mb-2">
                         <div className="text-center">Set</div>
                         <div className="text-center">Lbs</div>
@@ -166,12 +141,10 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                             key={`${ex.id}-${s.setNumber}`}
                             className="grid grid-cols-4 items-center gap-2 mb-2"
                         >
-                            {/* SET */}
                             <span className="text-gray-300 text-center">
                                 {s.setNumber}
                             </span>
 
-                            {/* LBS */}
                             <input
                                 className="bg-gray-700 p-1 rounded text-center w-full"
                                 placeholder={`${s.plannedWeight}`}
@@ -186,7 +159,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                 }
                             />
 
-                            {/* REPS */}
                             <input
                                 className="bg-gray-700 p-1 rounded text-center w-full"
                                 placeholder={`${s.plannedReps}`}
@@ -201,7 +173,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                 }
                             />
 
-                            {/* DONE */}
                             <div className="flex justify-center">
                                 <button
                                     onClick={() =>
@@ -228,7 +199,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                 </div>
             ))}
 
-            {/* FINISH MODAL */}
             {showFinishConfirm && (
                 <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
                     <div className="bg-gray-900 p-6 rounded-2xl w-[300px] text-center border border-gray-700">
@@ -243,6 +213,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowFinishConfirm(false)}
+                                disabled={saving}
                                 className="flex-1 bg-gray-700 py-2 rounded-lg"
                             >
                                 Cancel
@@ -250,16 +221,16 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
 
                             <button
                                 onClick={handleFinishWorkout}
-                                className="flex-1 bg-green-500 text-black py-2 rounded-lg font-semibold"
+                                disabled={saving}
+                                className="flex-1 bg-green-500 text-black py-2 rounded-lg font-semibold disabled:opacity-60"
                             >
-                                Finish
+                                {saving ? "Saving..." : "Finish"}
                             </button>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* DISCARD MODAL */}
             {showDiscardConfirm && (
                 <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
                     <div className="bg-gray-900 p-6 rounded-2xl w-[300px] text-center border border-gray-700">

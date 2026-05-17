@@ -7,10 +7,15 @@ import {
     savePendingRoutines,
 } from "./offlineStorage";
 
-export async function fetchRoutines() {
+async function getUser() {
     const {
-        data: { user },
-    } = await supabase.auth.getUser();
+        data: { session },
+    } = await supabase.auth.getSession();
+    return session?.user ?? null;
+}
+
+export async function fetchRoutines() {
+    const user = await getUser();
 
     if (!user) return loadLocalRoutines();
 
@@ -30,16 +35,12 @@ export async function fetchRoutines() {
     }
 
     const routines = data ?? [];
-
     saveLocalRoutines(routines);
     return routines;
 }
 
 export async function saveRoutine(routine: any, position: number) {
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
+    const user = await getUser();
     if (!user) return;
 
     const payload = {
@@ -52,7 +53,6 @@ export async function saveRoutine(routine: any, position: number) {
 
     if (!isOnline()) {
         const pending = loadPendingRoutines();
-
         savePendingRoutines([...pending, { type: "save", routine, position }]);
 
         const local = loadLocalRoutines();
@@ -68,6 +68,8 @@ export async function saveRoutine(routine: any, position: number) {
 
     if (error) {
         console.error(error);
+        const pending = loadPendingRoutines();
+        savePendingRoutines([...pending, { type: "save", routine, position }]);
         return;
     }
 
@@ -80,38 +82,27 @@ export async function saveRoutine(routine: any, position: number) {
 }
 
 export async function deleteRoutine(id: string) {
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
+    const user = await getUser();
     if (!user) return;
 
     if (!isOnline()) {
         const pending = loadPendingRoutines();
-
         savePendingRoutines([...pending, { type: "delete", id }]);
-
         saveLocalRoutines(loadLocalRoutines().filter((r: any) => r.id !== id));
         return;
     }
 
     await supabase.from("routines").delete().eq("id", id);
-
     saveLocalRoutines(loadLocalRoutines().filter((r: any) => r.id !== id));
 }
 
 export async function updateRoutineOrder(routines: any[]) {
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-
+    const user = await getUser();
     if (!user) return;
 
     if (!isOnline()) {
         const pending = loadPendingRoutines();
-
         savePendingRoutines([...pending, { type: "reorder", routines }]);
-
         saveLocalRoutines(routines);
         return;
     }

@@ -14,29 +14,38 @@ export async function syncPendingHistory() {
     if (!pending.length) return;
 
     const {
-        data: { user },
-    } = await supabase.auth.getUser();
+        data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
 
     if (!user) return;
 
     let local = loadLocalHistory();
-    const remaining = [];
+    const remaining: any[] = [];
 
     for (const item of pending) {
         try {
             if (item.type === "save") {
-                const { error } = await supabase
+                const workout = item.workout;
+                const { data, error } = await supabase
                     .from("workout_history")
                     .insert({
                         user_id: user.id,
-                        routine_name: item.workout.routineName,
-                        duration: item.workout.duration,
-                        exercises: item.workout.exercises,
-                        completed_at: new Date().toISOString(),
-                    });
+                        routine_name:
+                            workout.routine_name ?? workout.routineName,
+                        duration: workout.duration,
+                        exercises: workout.exercises,
+                        completed_at:
+                            workout.completed_at ?? new Date().toISOString(),
+                    })
+                    .select()
+                    .single();
 
-                if (!error) {
-                    local = [item.workout, ...local];
+                if (!error && data) {
+                    local = local.filter(
+                        (h: any) => h.id !== workout.id && h._isLocal !== true,
+                    );
+                    local = [data, ...local];
                 } else {
                     remaining.push(item);
                 }

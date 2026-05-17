@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import BottomNav from "./components/BottomNav";
 import HistoryDetailPage from "./pages/HistoryDetailPage";
 import type { WorkoutHistory } from "./types/history";
+import { useOfflineSync } from "./hooks/useOfflineSync";
 
 type View = "home" | "profile" | "builder" | "workout" | "historyDetail";
 
@@ -33,6 +34,8 @@ function App() {
 
     const [selectedHistory, setSelectedHistory] =
         useState<WorkoutHistory | null>(null);
+
+    useOfflineSync();
 
     useEffect(() => {
         let mounted = true;

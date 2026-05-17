@@ -14,14 +14,14 @@ export async function syncPendingRoutines() {
     if (!pending.length) return;
 
     const {
-        data: { user },
-    } = await supabase.auth.getUser();
+        data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
 
     if (!user) return;
 
     let local = loadLocalRoutines();
-
-    const remainingPending = [];
+    const remainingPending: any[] = [];
 
     for (const action of pending) {
         try {
@@ -38,7 +38,6 @@ export async function syncPendingRoutines() {
                     const exists = local.find(
                         (r: any) => r.id === action.routine.id,
                     );
-
                     if (exists) {
                         local = local.map((r: any) =>
                             r.id === action.routine.id ? action.routine : r,
@@ -73,7 +72,6 @@ export async function syncPendingRoutines() {
                 );
 
                 const results = await Promise.all(updates);
-
                 const hasError = results.some((r) => r.error);
 
                 if (!hasError) {
@@ -89,6 +87,5 @@ export async function syncPendingRoutines() {
     }
 
     saveLocalRoutines(local);
-
     savePendingRoutines(remainingPending);
 }

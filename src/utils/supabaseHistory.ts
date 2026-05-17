@@ -1,42 +1,67 @@
 import { supabase } from "../lib/supabase";
 import { isOnline } from "./network";
-import { loadLocalHistory, saveLocalHistory } from "./offlineStorage";
+import {
+    loadLocalHistory,
+    saveLocalHistory,
+    savePendingHistory,
+    loadPendingHistory,
+    normalizeHistoryEntry,
+} from "./offlineStorage";
 
 export async function saveWorkoutHistory(workout: any) {
     const {
-        data: { user },
-    } = await supabase.auth.getUser();
+        data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
 
     if (!user) return;
 
-    const payload = {
+    const normalized = normalizeHistoryEntry({
+        ...workout,
         user_id: user.id,
-        routine_name: workout.routineName,
-        completed_at: workout.completed_at,
-        duration: workout.duration,
-        exercises: workout.exercises,
-    };
+        _isLocal: true,
+    });
 
     if (!isOnline()) {
         const local = loadLocalHistory();
-        saveLocalHistory([payload, ...local]);
+        saveLocalHistory([normalized, ...local]);
+
+        const pending = loadPendingHistory();
+        savePendingHistory([...pending, { type: "save", workout: normalized }]);
         return;
     }
 
-    const { error } = await supabase.from("workout_history").insert(payload);
+    const { data, error } = await supabase
+        .from("workout_history")
+        .insert({
+            user_id: user.id,
+            routine_name: normalized.routine_name,
+            completed_at: normalized.completed_at,
+            duration: normalized.duration,
+            exercises: normalized.exercises,
+        })
+        .select()
+        .single();
 
     if (error) {
         const local = loadLocalHistory();
-        saveLocalHistory([payload, ...local]);
+        saveLocalHistory([normalized, ...local]);
+
+        const pending = loadPendingHistory();
+        savePendingHistory([...pending, { type: "save", workout: normalized }]);
+    } else if (data) {
+        const local = loadLocalHistory();
+        saveLocalHistory([data, ...local]);
     }
 }
 
 export async function fetchWorkoutHistory() {
     const {
-        data: { user },
-    } = await supabase.auth.getUser();
+        data: { session },
+    } = await supabase.auth.getSession();
+    const user = session?.user;
 
-    if (!user) return [];
+    if (!user) return loadLocalHistory();
 
     if (!isOnline()) {
         return loadLocalHistory();
@@ -52,6 +77,12 @@ export async function fetchWorkoutHistory() {
         return loadLocalHistory();
     }
 
-    saveLocalHistory(data ?? []);
-    return data ?? [];
+    const serverData = data ?? [];
+    const localData = loadLocalHistory();
+    const localOnlyEntries = localData.filter((h: any) => h._isLocal === true);
+
+    const merged = [...serverData, ...localOnlyEntries];
+    saveLocalHistory(merged);
+
+    return merged;
 }
