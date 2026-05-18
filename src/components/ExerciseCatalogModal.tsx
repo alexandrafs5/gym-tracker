@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import {
     EXERCISE_CATALOG,
     ALL_MUSCLES,
-    ALL_EQUIPMENT,
     type CatalogExercise,
 } from "../data/exerciseCatalog";
 
