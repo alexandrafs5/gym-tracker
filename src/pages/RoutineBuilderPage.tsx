@@ -8,6 +8,8 @@ import {
     arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import ExerciseCatalogModal from "../components/ExerciseCatalogModal";
+import type { CatalogExercise } from "../data/exerciseCatalog";
 
 interface Props {
     onBack: () => void;
@@ -25,6 +27,7 @@ type SetUI = {
 type ExerciseUI = {
     id: string;
     name: string;
+    imageUrl?: string;
     sets: SetUI[];
 };
 
@@ -52,7 +55,6 @@ function SortableExercise({
             >
                 ☰ Hold to reorder
             </div>
-
             {children}
         </div>
     );
@@ -60,17 +62,17 @@ function SortableExercise({
 
 function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
     const [routineName, setRoutineName] = useState("");
-    const [exerciseName, setExerciseName] = useState("");
     const [exercises, setExercises] = useState<ExerciseUI[]>([]);
+    const [showCatalog, setShowCatalog] = useState(false);
 
     useEffect(() => {
         if (existingRoutine) {
             setRoutineName(existingRoutine.name);
-
             setExercises(
                 existingRoutine.exercises.map((ex) => ({
                     id: ex.id,
                     name: ex.name,
+                    imageUrl: ex.imageUrl,
                     sets: ex.sets.map((s) => ({
                         setNumber: s.setNumber,
                         weight: String(s.weight ?? ""),
@@ -82,24 +84,15 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         }
     }, [existingRoutine]);
 
-    const handleAddExercise = () => {
-        if (!exerciseName.trim()) return;
-
+    const handleSelectFromCatalog = (catalogEx: CatalogExercise) => {
         const newExercise: ExerciseUI = {
             id: crypto.randomUUID(),
-            name: exerciseName,
-            sets: [
-                {
-                    setNumber: 1,
-                    weight: "",
-                    reps: "",
-                    completed: false,
-                },
-            ],
+            name: catalogEx.name,
+            imageUrl: catalogEx.imageUrl,
+            sets: [{ setNumber: 1, weight: "", reps: "", completed: false }],
         };
-
         setExercises((prev) => [...prev, newExercise]);
-        setExerciseName("");
+        setShowCatalog(false);
     };
 
     const handleUpdateExerciseName = (exerciseId: string, newName: string) => {
@@ -138,9 +131,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         value: string,
     ) => {
         if (field === "reps" && !/^\d*$/.test(value)) return;
-
         if (field === "weight" && !/^\d*\.?\d*$/.test(value)) return;
-
         setExercises((prev) =>
             prev.map((ex) =>
                 ex.id !== exerciseId
@@ -157,6 +148,10 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         );
     };
 
+    const handleRemoveExercise = (exerciseId: string) => {
+        setExercises((prev) => prev.filter((ex) => ex.id !== exerciseId));
+    };
+
     const handleSave = () => {
         const routine: Routine = {
             id: existingRoutine?.id ?? crypto.randomUUID(),
@@ -164,6 +159,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
             exercises: exercises.map((ex) => ({
                 id: ex.id,
                 name: ex.name,
+                imageUrl: ex.imageUrl,
                 sets: ex.sets.map((s) => ({
                     setNumber: s.setNumber,
                     weight: Number(s.weight || 0),
@@ -172,149 +168,167 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                 })),
             })),
         };
-
         onSaveRoutine(routine);
     };
 
     const handleDragEnd = (event: any) => {
         const { active, over } = event;
-
         if (!over || active.id === over.id) return;
-
         setExercises((items) => {
             const oldIndex = items.findIndex((item) => item.id === active.id);
-
             const newIndex = items.findIndex((item) => item.id === over.id);
-
             return arrayMove(items, oldIndex, newIndex);
         });
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white flex flex-col">
-            <div className="sticky top-0 bg-gray-950 border-b border-gray-800 px-6 pt-6 pb-4">
-                <div className="grid grid-cols-3 items-center mb-4">
-                    <button
-                        onClick={onBack}
-                        className="text-gray-400 text-left"
-                    >
-                        ← Back
-                    </button>
+        <>
+            {showCatalog && (
+                <ExerciseCatalogModal
+                    onSelect={handleSelectFromCatalog}
+                    onClose={() => setShowCatalog(false)}
+                />
+            )}
 
-                    <h1 className="text-xl font-bold text-center">
-                        Create Routine
-                    </h1>
+            <div className="min-h-screen bg-gray-950 text-white flex flex-col">
+                <div className="sticky top-0 bg-gray-950 border-b border-gray-800 px-6 pt-6 pb-4">
+                    <div className="grid grid-cols-3 items-center mb-4">
+                        <button
+                            onClick={onBack}
+                            className="text-gray-400 text-left"
+                        >
+                            ← Back
+                        </button>
+                        <h1 className="text-xl font-bold text-center">
+                            {existingRoutine
+                                ? "Edit Routine"
+                                : "Create Routine"}
+                        </h1>
+                        <button
+                            onClick={handleSave}
+                            className="text-gray-300 text-right"
+                        >
+                            Save
+                        </button>
+                    </div>
 
-                    <button
-                        onClick={handleSave}
-                        className="text-gray-300 text-right"
-                    >
-                        Save
-                    </button>
+                    <input
+                        className="w-full bg-transparent border-b border-gray-700 text-gray-300 pb-2"
+                        placeholder="Routine name"
+                        value={routineName}
+                        onChange={(e) => setRoutineName(e.target.value)}
+                    />
                 </div>
 
-                <input
-                    className="w-full bg-transparent border-b border-gray-700 text-gray-300 pb-2"
-                    placeholder="Routine name"
-                    value={routineName}
-                    onChange={(e) => setRoutineName(e.target.value)}
-                />
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-6">
-                <input
-                    className="w-full p-3 bg-gray-800 rounded-lg mb-4"
-                    placeholder="Exercise name"
-                    value={exerciseName}
-                    onChange={(e) => setExerciseName(e.target.value)}
-                />
-
-                <button
-                    onClick={handleAddExercise}
-                    className="bg-blue-500 w-full py-2 rounded-lg mb-6"
-                >
-                    + Add Exercise
-                </button>
-
-                <DndContext
-                    collisionDetection={closestCenter}
-                    onDragEnd={handleDragEnd}
-                >
-                    <SortableContext
-                        items={exercises.map((ex) => ex.id)}
-                        strategy={verticalListSortingStrategy}
+                <div className="flex-1 overflow-y-auto p-6">
+                    <button
+                        onClick={() => setShowCatalog(true)}
+                        className="bg-blue-500 w-full py-3 rounded-xl mb-6 font-semibold text-white"
                     >
-                        {exercises.map((ex) => (
-                            <SortableExercise key={ex.id} ex={ex}>
-                                <div className="bg-gray-800 p-4 rounded-lg mb-6">
-                                    <input
-                                        value={ex.name}
-                                        onChange={(e) =>
-                                            handleUpdateExerciseName(
-                                                ex.id,
-                                                e.target.value,
-                                            )
-                                        }
-                                        className="w-full bg-transparent border-b border-gray-600 text-lg font-semibold mb-3 pb-1"
-                                        placeholder="Exercise name"
-                                    />
+                        + Add Exercise
+                    </button>
 
-                                    <div className="grid grid-cols-3 text-gray-400 mb-2">
-                                        <span>Set</span>
-                                        <span>Lbs</span>
-                                        <span>Reps</span>
-                                    </div>
-
-                                    {ex.sets.map((s) => (
-                                        <div
-                                            key={s.setNumber}
-                                            className="grid grid-cols-3 gap-2 mb-2"
-                                        >
-                                            <span>{s.setNumber}</span>
-
+                    <DndContext
+                        collisionDetection={closestCenter}
+                        onDragEnd={handleDragEnd}
+                    >
+                        <SortableContext
+                            items={exercises.map((ex) => ex.id)}
+                            strategy={verticalListSortingStrategy}
+                        >
+                            {exercises.map((ex) => (
+                                <SortableExercise key={ex.id} ex={ex}>
+                                    <div className="bg-gray-800 p-4 rounded-xl mb-6">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            {ex.imageUrl && (
+                                                <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-gray-700 border border-gray-600">
+                                                    <img
+                                                        src={ex.imageUrl}
+                                                        alt={ex.name}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                            )}
                                             <input
-                                                className="bg-gray-700 p-1 rounded"
-                                                value={s.weight}
+                                                value={ex.name}
                                                 onChange={(e) =>
-                                                    handleUpdateSet(
+                                                    handleUpdateExerciseName(
                                                         ex.id,
-                                                        s.setNumber,
-                                                        "weight",
                                                         e.target.value,
                                                     )
                                                 }
-                                                inputMode="decimal"
+                                                className="flex-1 bg-transparent border-b border-gray-600 text-base font-semibold pb-1"
+                                                placeholder="Exercise name"
                                             />
-
-                                            <input
-                                                className="bg-gray-700 p-1 rounded"
-                                                value={s.reps}
-                                                onChange={(e) =>
-                                                    handleUpdateSet(
-                                                        ex.id,
-                                                        s.setNumber,
-                                                        "reps",
-                                                        e.target.value,
-                                                    )
+                                            <button
+                                                onClick={() =>
+                                                    handleRemoveExercise(ex.id)
                                                 }
-                                                inputMode="numeric"
-                                            />
+                                                className="text-gray-500 text-lg ml-1"
+                                            >
+                                                ✕
+                                            </button>
                                         </div>
-                                    ))}
 
-                                    <button
-                                        onClick={() => handleAddSet(ex.id)}
-                                        className="text-blue-400 mt-2"
-                                    >
-                                        + Add Set
-                                    </button>
-                                </div>
-                            </SortableExercise>
-                        ))}
-                    </SortableContext>
-                </DndContext>
+                                        <div className="grid grid-cols-3 text-gray-400 text-sm mb-2">
+                                            <span>Set</span>
+                                            <span>Lbs</span>
+                                            <span>Reps</span>
+                                        </div>
+
+                                        {ex.sets.map((s) => (
+                                            <div
+                                                key={s.setNumber}
+                                                className="grid grid-cols-3 gap-2 mb-2"
+                                            >
+                                                <span className="flex items-center text-gray-300">
+                                                    {s.setNumber}
+                                                </span>
+                                                <input
+                                                    className="bg-gray-700 p-1.5 rounded-lg text-center"
+                                                    value={s.weight}
+                                                    onChange={(e) =>
+                                                        handleUpdateSet(
+                                                            ex.id,
+                                                            s.setNumber,
+                                                            "weight",
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    inputMode="decimal"
+                                                    placeholder="0"
+                                                />
+                                                <input
+                                                    className="bg-gray-700 p-1.5 rounded-lg text-center"
+                                                    value={s.reps}
+                                                    onChange={(e) =>
+                                                        handleUpdateSet(
+                                                            ex.id,
+                                                            s.setNumber,
+                                                            "reps",
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    inputMode="numeric"
+                                                    placeholder="0"
+                                                />
+                                            </div>
+                                        ))}
+
+                                        <button
+                                            onClick={() => handleAddSet(ex.id)}
+                                            className="text-blue-400 mt-2 text-sm"
+                                        >
+                                            + Add Set
+                                        </button>
+                                    </div>
+                                </SortableExercise>
+                            ))}
+                        </SortableContext>
+                    </DndContext>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

@@ -8,6 +8,7 @@ export interface ExerciseSet {
 export interface Exercise {
     id: string;
     name: string;
+    imageUrl?: string;
     sets: ExerciseSet[];
 }
 
@@ -29,6 +30,7 @@ export interface ActiveSet {
 export interface ActiveExercise {
     id: string;
     name: string;
+    imageUrl?: string;
     sets: ActiveSet[];
 }
 

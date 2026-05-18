@@ -6,6 +6,7 @@ export interface WorkoutHistory {
     exercises: {
         id: string;
         name: string;
+        imageUrl?: string;
         sets: {
             setNumber: number;
             plannedWeight: number;

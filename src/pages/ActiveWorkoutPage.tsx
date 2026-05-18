@@ -19,6 +19,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
         exercises: workout.exercises.map((ex) => ({
             id: ex.id,
             name: ex.name,
+            imageUrl: ex.imageUrl,
             sets: ex.sets.map((s) => ({
                 setNumber: s.setNumber,
                 plannedWeight: s.plannedWeight,
@@ -34,7 +35,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
         const interval = setInterval(() => {
             setTime(Date.now() - workout.startTime);
         }, 1000);
-
         return () => clearInterval(interval);
     }, [workout.startTime]);
 
@@ -71,7 +71,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
 
     const handleFinishWorkout = async () => {
         setSaving(true);
-
         const completedExercises = data.exercises
             .map((ex) => ({
                 ...ex,
@@ -97,7 +96,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
         };
 
         await saveWorkoutHistory(completedWorkout);
-
         setSaving(false);
         onExit();
     };
@@ -111,7 +109,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                 >
                     Discard
                 </button>
-
                 <button
                     onClick={() => setShowFinishConfirm(true)}
                     className="text-green-400"
@@ -127,7 +124,19 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
 
             {data.exercises.map((ex) => (
                 <div key={ex.id} className="bg-gray-800 p-4 rounded-xl mb-6">
-                    <h2 className="mb-3 font-semibold">{ex.name}</h2>
+                    {/* Exercise header with round image */}
+                    <div className="flex items-center gap-3 mb-3">
+                        {ex.imageUrl && (
+                            <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-gray-700 border border-gray-600">
+                                <img
+                                    src={ex.imageUrl}
+                                    alt={ex.name}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        )}
+                        <h2 className="font-semibold text-base">{ex.name}</h2>
+                    </div>
 
                     <div className="grid grid-cols-4 text-xs text-gray-400 mb-2">
                         <div className="text-center">Set</div>
@@ -144,9 +153,8 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                             <span className="text-gray-300 text-center">
                                 {s.setNumber}
                             </span>
-
                             <input
-                                className="bg-gray-700 p-1 rounded text-center w-full"
+                                className="bg-gray-700 p-1.5 rounded-lg text-center w-full text-sm"
                                 placeholder={`${s.plannedWeight}`}
                                 value={s.actualWeight}
                                 onChange={(e) =>
@@ -158,9 +166,8 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                     )
                                 }
                             />
-
                             <input
-                                className="bg-gray-700 p-1 rounded text-center w-full"
+                                className="bg-gray-700 p-1.5 rounded-lg text-center w-full text-sm"
                                 placeholder={`${s.plannedReps}`}
                                 value={s.actualReps}
                                 onChange={(e) =>
@@ -172,7 +179,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                     )
                                 }
                             />
-
                             <div className="flex justify-center">
                                 <button
                                     onClick={() =>
@@ -185,12 +191,11 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                     }
                                 >
                                     <div
-                                        className={`w-5 h-5 rounded-full border-2 transition-all duration-200
-                ${
-                    s.completed
-                        ? "bg-green-500 border-green-500"
-                        : "border-gray-500"
-                }`}
+                                        className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                                            s.completed
+                                                ? "bg-green-500 border-green-500"
+                                                : "border-gray-500"
+                                        }`}
                                     />
                                 </button>
                             </div>
@@ -205,11 +210,9 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                         <h2 className="text-lg font-semibold mb-2">
                             Finish workout?
                         </h2>
-
                         <p className="text-gray-400 text-sm mb-6">
                             Save this workout to your history.
                         </p>
-
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowFinishConfirm(false)}
@@ -218,7 +221,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                             >
                                 Cancel
                             </button>
-
                             <button
                                 onClick={handleFinishWorkout}
                                 disabled={saving}
@@ -237,11 +239,9 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                         <h2 className="text-lg font-semibold mb-2">
                             Discard workout?
                         </h2>
-
                         <p className="text-gray-400 text-sm mb-6">
                             You will lose all progress.
                         </p>
-
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowDiscardConfirm(false)}
@@ -249,7 +249,6 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                             >
                                 Cancel
                             </button>
-
                             <button
                                 onClick={onExit}
                                 className="flex-1 bg-red-500 text-black py-2 rounded-lg font-semibold"

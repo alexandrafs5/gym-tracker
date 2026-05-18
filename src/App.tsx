@@ -160,6 +160,7 @@ function App() {
             exercises: routine.exercises.map((ex) => ({
                 id: ex.id,
                 name: ex.name,
+                imageUrl: ex.imageUrl, // ← ADD THIS LINE
                 sets: ex.sets.map((s) => ({
                     setNumber: s.setNumber,
                     plannedWeight: s.weight,
