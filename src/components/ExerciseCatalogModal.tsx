@@ -22,14 +22,24 @@ function ExerciseCatalogModal({ onSelect, onClose }: Props) {
             const matchSearch = ex.name
                 .toLowerCase()
                 .includes(search.toLowerCase());
+
             const matchMuscle =
                 selectedMuscle === "All Muscles" ||
                 ex.primaryMuscle === selectedMuscle ||
                 ex.secondaryMuscles.includes(selectedMuscle);
+
             const matchEquipment =
                 selectedEquipment === "All Equipment" ||
                 ex.equipment === selectedEquipment;
+
             return matchSearch && matchMuscle && matchEquipment;
+        }).sort((a, b) => {
+            const aPrimary = a.primaryMuscle === selectedMuscle ? 0 : 1;
+            const bPrimary = b.primaryMuscle === selectedMuscle ? 0 : 1;
+
+            if (aPrimary !== bPrimary) return aPrimary - bPrimary;
+
+            return a.name.localeCompare(b.name);
         });
     }, [search, selectedMuscle, selectedEquipment]);
 
