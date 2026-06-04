@@ -1283,14 +1283,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
     },
     // Chin Ups
     {
-        id: "chin-up",
-        name: "Chin-Up",
-        primaryMuscle: "Biceps",
-        secondaryMuscles: ["Lats", "Forearms"],
-        equipment: "Bodyweight",
-        imageUrl: "",
-    },
-    {
         id: "assisted-chin-up",
         name: "Chin-Up (Assisted)",
         primaryMuscle: "Biceps",
@@ -1567,23 +1559,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         name: "Inverted Row",
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
-        equipment: "Bodyweight",
-        imageUrl: "",
-    },
-    // Scapular / Retraction
-    {
-        id: "scapular-retraction-cable",
-        name: "Scapular Retraction (Cable)",
-        primaryMuscle: "Upper Back",
-        secondaryMuscles: ["Traps"],
-        equipment: "Cable",
-        imageUrl: "",
-    },
-    {
-        id: "scapular-pull-up",
-        name: "Scapular Pull-Up",
-        primaryMuscle: "Upper Back",
-        secondaryMuscles: ["Lats", "Traps"],
         equipment: "Bodyweight",
         imageUrl: "",
     },
