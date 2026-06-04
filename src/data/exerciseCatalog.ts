@@ -4,7 +4,6 @@ export interface CatalogExercise {
     primaryMuscle: string;
     secondaryMuscles: string[];
     equipment: string;
-    imageUrl: string;
 }
 
 export const EXERCISE_CATALOG: CatalogExercise[] = [
@@ -16,7 +15,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     //Dips
     {
@@ -25,7 +23,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "bench-dip",
@@ -33,7 +30,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "seated-dip-machine",
@@ -41,7 +37,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "triceps-dip",
@@ -49,7 +44,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "triceps-dip-assisted",
@@ -57,7 +51,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "triceps-dip-weighted",
@@ -65,7 +58,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Plate",
-        imageUrl: "",
     },
     //Presses
     {
@@ -74,7 +66,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "jm-press",
@@ -82,7 +73,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: ["Chest", "Shoulders"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     //Extensions
     {
@@ -91,7 +81,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "triceps-extension-dumbbell",
@@ -99,7 +88,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "triceps-extension-barbell",
@@ -107,7 +95,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "triceps-extension-machine",
@@ -115,7 +102,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "single-arm-triceps-extension-cable",
@@ -123,7 +109,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-triceps-extension-dumbbell",
@@ -131,7 +116,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     //Pushdowns
     {
@@ -140,7 +124,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "triceps-rope-pushdown-cable",
@@ -148,7 +131,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-triceps-rope-pushdown-cable",
@@ -156,7 +138,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     //Kickbacks
     {
@@ -165,7 +146,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "triceps-kickback-dumbbell",
@@ -173,7 +153,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     //Skullcrushers
     {
@@ -182,7 +161,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "skullcrusher-dumbbell",
@@ -190,7 +168,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Triceps",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     //Shoulder exercises
     //Presses
@@ -200,7 +177,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "shoulder-press-dumbbell",
@@ -208,7 +184,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "shoulder-press-machine",
@@ -216,7 +191,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "shoulder-press-smith-machine",
@@ -224,7 +198,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps"],
         equipment: "Smith Machine",
-        imageUrl: "",
     },
     {
         id: "arnold-press",
@@ -232,7 +205,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "landmine-press",
@@ -240,7 +212,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps", "Chest"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "single-arm-landmine-press",
@@ -248,7 +219,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps", "Chest", "Abs"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     //Push Ups
     {
@@ -257,7 +227,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps", "Chest"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "handstand-push-up",
@@ -265,7 +234,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Triceps"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     //Lateral Raises
     {
@@ -274,7 +242,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "lateral-raise-seated-dumbbell",
@@ -282,7 +249,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "lateral-raise-cable",
@@ -290,7 +256,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "lateral-raise-machine",
@@ -298,7 +263,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "single-arm-lateral-raise-cable",
@@ -306,7 +270,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     //Front Raises
     {
@@ -315,7 +278,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "front-raise-barbell",
@@ -323,7 +285,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "front-raise-cable",
@@ -331,7 +292,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "front-raise-plate",
@@ -339,7 +299,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "front-raise-band",
@@ -347,7 +306,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: [],
         equipment: "Band",
-        imageUrl: "",
     },
     //Rear Delts
     {
@@ -356,7 +314,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "rear-delt-fly-cable",
@@ -364,7 +321,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-rear-delt-fly-cable",
@@ -372,7 +328,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "rear-delt-fly-machine",
@@ -380,7 +335,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Machine",
-        imageUrl: "",
     },
     //Upright Rows
     {
@@ -389,7 +343,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Traps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "upright-row-cable",
@@ -397,7 +350,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Traps"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "upright-row-dumbbell",
@@ -405,7 +357,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Traps"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     //Face Pulls
     {
@@ -414,7 +365,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Cable",
-        imageUrl: "",
     },
     //Y Raises
     {
@@ -423,7 +373,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "y-raise-cable",
@@ -431,7 +380,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Shoulders",
         secondaryMuscles: ["Upper Back"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Chest exercises
     // Presses
@@ -441,7 +389,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "bench-press-dumbbell",
@@ -449,7 +396,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "bench-press-machine",
@@ -457,7 +403,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "bench-press-smith-machine",
@@ -465,7 +410,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Smith Machine",
-        imageUrl: "",
     },
     {
         id: "incline-bench-press-barbell",
@@ -473,7 +417,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders", "Triceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "incline-bench-press-dumbbell",
@@ -481,7 +424,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders", "Triceps"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "incline-bench-press-machine",
@@ -489,7 +431,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders", "Triceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "incline-bench-press-smith-machine",
@@ -497,7 +438,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders", "Triceps"],
         equipment: "Smith Machine",
-        imageUrl: "",
     },
     {
         id: "decline-bench-press-barbell",
@@ -505,7 +445,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "decline-bench-press-dumbbell",
@@ -513,7 +452,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Flyes
     {
@@ -522,7 +460,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "chest-fly-cable",
@@ -530,7 +467,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "chest-fly-band",
@@ -538,7 +474,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders"],
         equipment: "Band",
-        imageUrl: "",
     },
     {
         id: "incline-chest-fly-dumbbell",
@@ -546,7 +481,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "incline-chest-fly-cable",
@@ -554,7 +488,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-chest-fly-cable",
@@ -562,7 +495,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders", "Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Push-Ups
     {
@@ -571,7 +503,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "kneeling-push-up",
@@ -579,7 +510,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "incline-push-up",
@@ -587,7 +517,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "decline-push-up",
@@ -595,7 +524,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "weighted-push-up",
@@ -603,7 +531,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "clap-push-up",
@@ -611,7 +538,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "one-arm-push-up",
@@ -619,7 +545,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders", "Abs"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Dips
     {
@@ -628,7 +553,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "chest-dip-assisted",
@@ -636,7 +560,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "chest-dip-weighted",
@@ -644,7 +567,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Plate",
-        imageUrl: "",
     },
     // Cable Presses
     {
@@ -653,7 +575,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-cable-chest-press",
@@ -661,7 +582,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders", "Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Pec Deck
     {
@@ -670,7 +590,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Shoulders"],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Other
     {
@@ -679,7 +598,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Chest",
         secondaryMuscles: ["Triceps", "Shoulders"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Neck exercises
     // Flexion
@@ -689,7 +607,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "neck-flexion-band",
@@ -697,7 +614,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Band",
-        imageUrl: "",
     },
     {
         id: "neck-flexion-plate",
@@ -705,7 +621,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "neck-flexion-harness",
@@ -713,7 +628,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Harness",
-        imageUrl: "",
     },
     // Extension
     {
@@ -722,7 +636,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "neck-extension-band",
@@ -730,7 +643,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Band",
-        imageUrl: "",
     },
     {
         id: "neck-extension-plate",
@@ -738,7 +650,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "neck-extension-harness",
@@ -746,7 +657,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Harness",
-        imageUrl: "",
     },
     // Lateral Flexion
     {
@@ -755,7 +665,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "lateral-neck-flexion-band",
@@ -763,7 +672,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Band",
-        imageUrl: "",
     },
     {
         id: "lateral-neck-flexion-plate",
@@ -771,7 +679,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     // Isometrics
     {
@@ -780,7 +687,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "neck-isometric-hold-back",
@@ -788,7 +694,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "neck-isometric-hold-side",
@@ -796,7 +701,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Bridges
     {
@@ -805,7 +709,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: ["Upper Back"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "front-wrestler-bridge",
@@ -813,7 +716,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Neck",
         secondaryMuscles: ["Upper Back"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Trap exercises
     // Shrugs
@@ -823,7 +725,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "dumbbell-shrug",
@@ -831,7 +732,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "smith-machine-shrug",
@@ -839,7 +739,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: [],
         equipment: "Smith Machine",
-        imageUrl: "",
     },
     {
         id: "cable-shrug",
@@ -847,7 +746,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "machine-shrug",
@@ -855,7 +753,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: [],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Carries
     {
@@ -864,7 +761,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Forearms", "Abs"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "farmers-walk-trap-bar",
@@ -872,7 +768,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Forearms", "Abs"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     // High Pulls
     {
@@ -881,7 +776,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Shoulders"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "high-pull-cable",
@@ -889,7 +783,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Shoulders"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Trap Raises
     {
@@ -898,7 +791,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Shoulders"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "trap-raise-cable",
@@ -906,7 +798,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Shoulders"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Scapular
     {
@@ -915,7 +806,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Lats"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "scapular-retraction-cable",
@@ -923,7 +813,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Traps",
         secondaryMuscles: ["Upper Back"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Forearm exercises
     // Wrist Curls
@@ -933,7 +822,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "wrist-curl-dumbbell",
@@ -941,7 +829,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "wrist-curl-cable",
@@ -949,7 +836,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Reverse Wrist Curls
     {
@@ -958,7 +844,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "reverse-wrist-curl-dumbbell",
@@ -966,7 +851,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "reverse-wrist-curl-cable",
@@ -974,7 +858,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Wrist Rotations
     {
@@ -983,7 +866,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "wrist-rotation-cable",
@@ -991,7 +873,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Grip
     {
@@ -1000,7 +881,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     // Carries
     {
@@ -1009,7 +889,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: ["Traps", "Abs"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "farmers-walk-trap-bar-forearms",
@@ -1017,7 +896,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: ["Traps", "Abs"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "suitcase-carry",
@@ -1025,7 +903,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: ["Abs"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Hangs
     {
@@ -1034,7 +911,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: ["Lats", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "towel-hang",
@@ -1042,7 +918,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: ["Lats", "Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Finger Curls
     {
@@ -1051,7 +926,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "finger-curl-dumbbell",
@@ -1059,7 +933,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Forearms",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Biceps exercises
     // Standard Curls
@@ -1069,7 +942,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "biceps-curl-dumbbell",
@@ -1077,7 +949,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "biceps-curl-cable",
@@ -1085,7 +956,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "biceps-curl-machine",
@@ -1093,7 +963,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Single Arm Curls
     {
@@ -1102,7 +971,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "single-arm-biceps-curl-cable",
@@ -1110,7 +978,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Hammer Curls
     {
@@ -1119,7 +986,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "hammer-curl-cable",
@@ -1127,7 +993,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-hammer-curl-dumbbell",
@@ -1135,7 +1000,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Preacher Curls
     {
@@ -1144,7 +1008,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "preacher-curl-dumbbell",
@@ -1152,7 +1015,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "preacher-curl-cable",
@@ -1160,7 +1022,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "preacher-curl-machine",
@@ -1168,7 +1029,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Incline Curls
     {
@@ -1177,7 +1037,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "incline-curl-cable",
@@ -1185,7 +1044,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Concentration Curls
     {
@@ -1194,7 +1052,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "concentration-curl-cable",
@@ -1202,7 +1059,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Spider Curls
     {
@@ -1211,7 +1067,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "spider-curl-dumbbell",
@@ -1219,7 +1074,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Bayesian Curls
     {
@@ -1228,7 +1082,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Drag Curls
     {
@@ -1237,7 +1090,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "drag-curl-dumbbell",
@@ -1245,7 +1097,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Reverse Curls
     {
@@ -1254,7 +1105,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "reverse-curl-dumbbell",
@@ -1262,7 +1112,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "reverse-curl-cable",
@@ -1270,7 +1119,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Cross Body
     {
@@ -1279,7 +1127,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     // Chin Ups
     {
@@ -1288,7 +1135,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Lats", "Forearms"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "weighted-chin-up",
@@ -1296,7 +1142,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Lats", "Forearms"],
         equipment: "Plate",
-        imageUrl: "",
     },
     // Cable Specialty
     {
@@ -1305,7 +1150,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "high-cable-curl",
@@ -1313,7 +1157,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "behind-the-back-cable-curl",
@@ -1321,7 +1164,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Biceps",
         secondaryMuscles: ["Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Lats exercises
     // Pull-Ups
@@ -1331,7 +1173,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "pull-up-assisted",
@@ -1339,7 +1180,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "pull-up-weighted",
@@ -1347,7 +1187,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "chin-up",
@@ -1355,7 +1194,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "chin-up-assisted",
@@ -1363,7 +1201,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "chin-up-weighted",
@@ -1371,7 +1208,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "neutral-grip-pull-up",
@@ -1379,7 +1215,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Pulldowns
     {
@@ -1388,7 +1223,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-lat-pulldown-cable",
@@ -1396,7 +1230,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "kneeling-lat-pulldown-cable",
@@ -1404,7 +1237,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Biceps", "Forearms", "Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "straight-arm-lat-pulldown-cable",
@@ -1412,7 +1244,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Pullovers
     {
@@ -1421,7 +1252,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: [],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "dumbbell-pullover",
@@ -1429,7 +1259,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Chest"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "cable-pullover",
@@ -1437,7 +1266,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Advanced Bodyweight
     {
@@ -1446,7 +1274,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lats",
         secondaryMuscles: ["Abs", "Biceps"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Upper Back exercises
     // Rows
@@ -1456,7 +1283,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "single-arm-seated-row-cable",
@@ -1464,7 +1290,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "chest-supported-row-machine",
@@ -1472,7 +1297,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "chest-supported-row-dumbbell",
@@ -1480,7 +1304,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "single-arm-row-dumbbell",
@@ -1488,7 +1311,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "single-arm-row-machine",
@@ -1496,7 +1318,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "barbell-row",
@@ -1504,7 +1325,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "t-bar-row",
@@ -1512,7 +1332,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "landmine-row",
@@ -1520,7 +1339,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "single-arm-landmine-row",
@@ -1528,7 +1346,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "meadows-row",
@@ -1536,7 +1353,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "iso-lateral-row-machine",
@@ -1544,7 +1360,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "high-row-machine",
@@ -1552,7 +1367,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "inverted-row",
@@ -1560,7 +1374,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Additional Upper Back
     {
@@ -1569,7 +1382,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "single-arm-high-row-machine",
@@ -1577,7 +1389,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "machine-row",
@@ -1585,7 +1396,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "wide-grip-seated-row-cable",
@@ -1593,7 +1403,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "wide-grip-chest-supported-row",
@@ -1601,7 +1410,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Upper Back",
         secondaryMuscles: ["Lats", "Biceps"],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Lower Back exercises
     // Back Extensions
@@ -1611,7 +1419,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes", "Hamstrings"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "back-extension-plate",
@@ -1619,7 +1426,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes", "Hamstrings"],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "back-extension-machine",
@@ -1627,7 +1433,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes", "Hamstrings"],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Reverse Hyperextensions
     {
@@ -1636,7 +1441,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes", "Hamstrings"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "reverse-hyperextension-machine",
@@ -1644,7 +1448,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes", "Hamstrings"],
         equipment: "Machine",
-        imageUrl: "",
     },
     // Isometrics
     {
@@ -1653,7 +1456,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "bird-dog",
@@ -1661,7 +1463,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Abs", "Glutes"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Holds
     {
@@ -1670,7 +1471,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "back-extension-hold",
@@ -1678,7 +1478,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Lower Back",
         secondaryMuscles: ["Glutes", "Hamstrings"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Abs exercises
     // Leg Raises
@@ -1688,7 +1487,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "hanging-leg-raise",
@@ -1696,7 +1494,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: ["Forearms"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "captains-chair-leg-raise",
@@ -1704,7 +1501,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Machine",
-        imageUrl: "",
     },
     {
         id: "weighted-leg-raise",
@@ -1712,7 +1508,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     // Compression
     {
@@ -1721,7 +1516,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "toe-touch",
@@ -1729,7 +1523,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "hollow-body-hold",
@@ -1737,7 +1530,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "dead-bug",
@@ -1745,7 +1537,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Planks
     {
@@ -1754,7 +1545,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "weighted-plank",
@@ -1762,7 +1552,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: [],
         equipment: "Plate",
-        imageUrl: "",
     },
     // Rollouts
     {
@@ -1771,7 +1560,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: ["Shoulders", "Lats"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "barbell-rollout",
@@ -1779,7 +1567,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: ["Shoulders", "Lats"],
         equipment: "Barbell",
-        imageUrl: "",
     },
     {
         id: "stability-ball-rollout",
@@ -1787,7 +1574,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: ["Shoulders"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Advanced
     {
@@ -1796,7 +1582,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Abs",
         secondaryMuscles: ["Lats"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Obliques exercises
     // Rotations
@@ -1806,7 +1591,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "weighted-russian-twist",
@@ -1814,7 +1598,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Plate",
-        imageUrl: "",
     },
     {
         id: "bicycle-crunch",
@@ -1822,7 +1605,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     // Cable rotations
     {
@@ -1831,7 +1613,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "cable-woodchopper-low-to-high",
@@ -1839,7 +1620,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "reverse-cable-woodchopper",
@@ -1847,7 +1627,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Side flexion
     {
@@ -1856,7 +1635,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: [],
         equipment: "Dumbbell",
-        imageUrl: "",
     },
     {
         id: "side-bend-cable",
@@ -1864,7 +1642,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: [],
         equipment: "Cable",
-        imageUrl: "",
     },
     {
         id: "side-bend-barbell",
@@ -1872,7 +1649,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: [],
         equipment: "Barbell",
-        imageUrl: "",
     },
     // Anti-rotation / stability
     {
@@ -1881,7 +1657,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "side-plank-hip-lift",
@@ -1889,7 +1664,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "pallof-press",
@@ -1897,7 +1671,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs"],
         equipment: "Cable",
-        imageUrl: "",
     },
     // Advanced
     {
@@ -1906,7 +1679,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs", "Forearms"],
         equipment: "Bodyweight",
-        imageUrl: "",
     },
     {
         id: "landmine-rotation",
@@ -1914,7 +1686,6 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
         primaryMuscle: "Obliques",
         secondaryMuscles: ["Abs", "Shoulders"],
         equipment: "Barbell",
-        imageUrl: "",
     },
 ];
 

@@ -10,6 +10,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import ExerciseCatalogModal from "../components/ExerciseCatalogModal";
 import type { CatalogExercise } from "../data/exerciseCatalog";
+import { getExerciseImage } from "../utils/getExerciseImage";
 
 interface Props {
     onBack: () => void;
@@ -88,9 +89,17 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
         const newExercise: ExerciseUI = {
             id: crypto.randomUUID(),
             name: catalogEx.name,
-            imageUrl: catalogEx.imageUrl,
-            sets: [{ setNumber: 1, weight: "", reps: "", completed: false }],
+            imageUrl: getExerciseImage(catalogEx.id),
+            sets: [
+                {
+                    setNumber: 1,
+                    weight: "",
+                    reps: "",
+                    completed: false,
+                },
+            ],
         };
+
         setExercises((prev) => [...prev, newExercise]);
         setShowCatalog(false);
     };
@@ -132,6 +141,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
     ) => {
         if (field === "reps" && !/^\d*$/.test(value)) return;
         if (field === "weight" && !/^\d*\.?\d*$/.test(value)) return;
+
         setExercises((prev) =>
             prev.map((ex) =>
                 ex.id !== exerciseId
@@ -168,15 +178,17 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                 })),
             })),
         };
+
         onSaveRoutine(routine);
     };
 
     const handleDragEnd = (event: any) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
+
         setExercises((items) => {
-            const oldIndex = items.findIndex((item) => item.id === active.id);
-            const newIndex = items.findIndex((item) => item.id === over.id);
+            const oldIndex = items.findIndex((i) => i.id === active.id);
+            const newIndex = items.findIndex((i) => i.id === over.id);
             return arrayMove(items, oldIndex, newIndex);
         });
     };
@@ -199,11 +211,13 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                         >
                             ← Back
                         </button>
+
                         <h1 className="text-xl font-bold text-center">
                             {existingRoutine
                                 ? "Edit Routine"
                                 : "Create Routine"}
                         </h1>
+
                         <button
                             onClick={handleSave}
                             className="text-gray-300 text-right"
@@ -240,7 +254,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                 <SortableExercise key={ex.id} ex={ex}>
                                     <div className="bg-gray-800 p-4 rounded-xl mb-6">
                                         <div className="flex items-center gap-3 mb-3">
-                                            {ex.imageUrl && (
+                                            {ex.imageUrl?.trim() !== "" && (
                                                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-gray-700 border border-gray-600">
                                                     <img
                                                         src={ex.imageUrl}
@@ -249,6 +263,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                                     />
                                                 </div>
                                             )}
+
                                             <input
                                                 value={ex.name}
                                                 onChange={(e) =>
@@ -258,8 +273,8 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                                     )
                                                 }
                                                 className="flex-1 bg-transparent border-b border-gray-600 text-base font-semibold pb-1"
-                                                placeholder="Exercise name"
                                             />
+
                                             <button
                                                 onClick={() =>
                                                     handleRemoveExercise(ex.id)
@@ -284,6 +299,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                                 <span className="flex items-center text-gray-300">
                                                     {s.setNumber}
                                                 </span>
+
                                                 <input
                                                     className="bg-gray-700 p-1.5 rounded-lg text-center"
                                                     value={s.weight}
@@ -295,9 +311,8 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                                             e.target.value,
                                                         )
                                                     }
-                                                    inputMode="decimal"
-                                                    placeholder="0"
                                                 />
+
                                                 <input
                                                     className="bg-gray-700 p-1.5 rounded-lg text-center"
                                                     value={s.reps}
@@ -309,8 +324,6 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                                             e.target.value,
                                                         )
                                                     }
-                                                    inputMode="numeric"
-                                                    placeholder="0"
                                                 />
                                             </div>
                                         ))}
