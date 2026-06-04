@@ -73,7 +73,7 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                 existingRoutine.exercises.map((ex) => ({
                     id: ex.id,
                     name: ex.name,
-                    imageUrl: ex.imageUrl,
+                    imageUrl: getExerciseImage(ex.id),
                     sets: ex.sets.map((s) => ({
                         setNumber: s.setNumber,
                         weight: String(s.weight ?? ""),
@@ -102,14 +102,6 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
 
         setExercises((prev) => [...prev, newExercise]);
         setShowCatalog(false);
-    };
-
-    const handleUpdateExerciseName = (exerciseId: string, newName: string) => {
-        setExercises((prev) =>
-            prev.map((ex) =>
-                ex.id === exerciseId ? { ...ex, name: newName } : ex,
-            ),
-        );
     };
 
     const handleAddSet = (exerciseId: string) => {
@@ -253,8 +245,9 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                             {exercises.map((ex) => (
                                 <SortableExercise key={ex.id} ex={ex}>
                                     <div className="bg-gray-800 p-4 rounded-xl mb-6">
+                                        {/* HEADER */}
                                         <div className="flex items-center gap-3 mb-3">
-                                            {ex.imageUrl?.trim() !== "" && (
+                                            {ex.imageUrl && (
                                                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-gray-700 border border-gray-600">
                                                     <img
                                                         src={ex.imageUrl}
@@ -264,27 +257,21 @@ function RoutineBuilderPage({ onBack, onSaveRoutine, existingRoutine }: Props) {
                                                 </div>
                                             )}
 
-                                            <input
-                                                value={ex.name}
-                                                onChange={(e) =>
-                                                    handleUpdateExerciseName(
-                                                        ex.id,
-                                                        e.target.value,
-                                                    )
-                                                }
-                                                className="flex-1 bg-transparent border-b border-gray-600 text-base font-semibold pb-1"
-                                            />
+                                            <span className="flex-1 text-white font-semibold">
+                                                {ex.name}
+                                            </span>
 
                                             <button
                                                 onClick={() =>
                                                     handleRemoveExercise(ex.id)
                                                 }
-                                                className="text-gray-500 text-lg ml-1"
+                                                className="text-gray-500 text-lg"
                                             >
                                                 ✕
                                             </button>
                                         </div>
 
+                                        {/* SETS HEADER */}
                                         <div className="grid grid-cols-3 text-gray-400 text-sm mb-2">
                                             <span>Set</span>
                                             <span>Lbs</span>
