@@ -104,6 +104,10 @@ function ExerciseCatalogModal({ onSelect, onClose }: Props) {
                                 "Dumbbell",
                                 "Machine",
                                 "Bodyweight",
+                                "Cable",
+                                "Plate",
+                                "Band",
+                                "Smith Machine",
                             ].map((eq) => (
                                 <button
                                     key={eq}
