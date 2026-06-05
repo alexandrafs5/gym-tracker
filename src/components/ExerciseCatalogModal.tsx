@@ -115,7 +115,7 @@ function ExerciseCatalogModal({ onSelect, onClose }: Props) {
                     </button>
 
                     {showEquipmentFilter && (
-                        <div className="absolute top-full mt-1 left-0 right-0 bg-gray-800 rounded-xl overflow-hidden z-10 border border-gray-700 shadow-xl">
+                        <div className="absolute top-full mt-1 left-0 right-0 bg-gray-800 rounded-xl overflow-y-auto max-h-72 touch-pan-y z-20 border border-gray-700 shadow-xl">
                             {[
                                 "All Equipment",
                                 "Barbell",
@@ -162,7 +162,7 @@ function ExerciseCatalogModal({ onSelect, onClose }: Props) {
                     </button>
 
                     {showMuscleFilter && (
-                        <div className="absolute top-full mt-1 left-0 right-0 bg-gray-800 rounded-xl overflow-hidden z-10 border border-gray-700 shadow-xl">
+                        <div className="absolute top-full mt-1 left-0 right-0 bg-gray-800 rounded-xl overflow-y-auto max-h-72 touch-pan-y z-20 border border-gray-700 shadow-xl">
                             {ALL_MUSCLES.map((muscle) => (
                                 <button
                                     key={muscle}
