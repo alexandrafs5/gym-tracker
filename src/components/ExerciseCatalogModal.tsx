@@ -79,11 +79,10 @@ function ExerciseCatalogModal({ onSelect, onClose }: Props) {
                     </svg>
 
                     <input
-                        className="bg-transparent text-white placeholder-gray-500 text-sm flex-1 outline-none"
+                        className="bg-transparent text-white placeholder-gray-500 text-base flex-1 outline-none"
                         placeholder="Search exercise"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        autoFocus
                     />
 
                     {search && (
