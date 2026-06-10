@@ -154,7 +154,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                 {s.setNumber}
                             </span>
                             <input
-                                className="bg-gray-700 p-1.5 rounded-lg text-center w-full text-sm"
+                                className="bg-gray-700 p-1.5 rounded-lg text-center w-full text-base"
                                 placeholder={`${s.plannedWeight}`}
                                 value={s.actualWeight}
                                 onChange={(e) =>
@@ -167,7 +167,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                                 }
                             />
                             <input
-                                className="bg-gray-700 p-1.5 rounded-lg text-center w-full text-sm"
+                                className="bg-gray-700 p-1.5 rounded-lg text-center w-full text-base"
                                 placeholder={`${s.plannedReps}`}
                                 value={s.actualReps}
                                 onChange={(e) =>
@@ -210,7 +210,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                         <h2 className="text-lg font-semibold mb-2">
                             Finish workout?
                         </h2>
-                        <p className="text-gray-400 text-sm mb-6">
+                        <p className="text-gray-400 text-base mb-6">
                             Save this workout to your history.
                         </p>
                         <div className="flex gap-3">
@@ -239,7 +239,7 @@ function ActiveWorkoutPage({ workout, onExit }: Props) {
                         <h2 className="text-lg font-semibold mb-2">
                             Discard workout?
                         </h2>
-                        <p className="text-gray-400 text-sm mb-6">
+                        <p className="text-gray-400 text-base mb-6">
                             You will lose all progress.
                         </p>
                         <div className="flex gap-3">
